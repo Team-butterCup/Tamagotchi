@@ -1,5 +1,9 @@
+const db = require('./database')
+const Sequelize = require('sequelize')
 const User = require('./user')
-
+const Tamagotchi = require('./tamagotchi')
+const Order = require('./order')
+const Review = require('./review')
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -13,6 +17,34 @@ const User = require('./user')
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
+
+const TamagotchiOrder = db.define('TamagotchiOrder', {
+  qty: {
+    type: Sequelize.INTEGER
+  },
+  purchasePrice: {
+    type: Sequelize.FLOAT
+  }
+})
+
+Order.belongstoMany(Tamagotchi, {
+  through: TamagotchiOrder
+})
+
+Tamagotchi.belongstoMany(Order, {
+  through: TamagotchiOrder
+})
+
+Order.belongsTo(User)
+User.hasMany(Order)
+Review.belongsTo(User)
+User.hasMany(Review)
+Review.belongsTo(Tamagotchi)
+Tamagotchi.hasMany(Review)
+
 module.exports = {
-  User
+  User,
+  Tamagotchi,
+  Order,
+  Review
 }
