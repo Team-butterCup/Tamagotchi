@@ -21,9 +21,9 @@ const removeReviews = () => ({type: REMOVE_REVIEWS})
 /**
  * THUNK CREATORS
  */
-export const me = () => async dispatch => {
+export const fetchReviews = () => async dispatch => {
   try {
-    const res = await axios.get('/auth/me')
+    const res = await axios.get('/api/reviews')
     dispatch(getReviews(res.data || defaultReviews))
   } catch (err) {
     console.error(err)
