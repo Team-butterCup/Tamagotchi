@@ -16,6 +16,7 @@ router.get('/:reviewId', async (req, res, next) => {
     const review = await Review.findByPk(req.params.reviewId, {
       include: [User, Tamagotchi]
     })
+    res.json(review)
   } catch (err) {
     next(err)
   }

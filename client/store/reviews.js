@@ -10,7 +10,7 @@ const REMOVE_REVIEWS = 'REMOVE_REVIEWS'
 /**
  * INITIAL STATE
  */
-const defaultReviews = {}
+const defaultReviews = []
 
 /**
  * ACTION CREATORS

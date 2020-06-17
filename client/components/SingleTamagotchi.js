@@ -6,7 +6,7 @@ import Reviews from './review'
 
 class SingleTamagotchi extends React.Component {
   componentDidMount() {
-    const id = this.props.match.params.tamagotchiId
+    const id = Number(this.props.match.params.tamagotchiId)
     this.props.getSingleTamagotchi(id)
   }
   render() {
@@ -37,7 +37,7 @@ class SingleTamagotchi extends React.Component {
 }
 
 const mapState = reduxState => ({
-  tamagotchi: reduxState.tamagotchi
+  tamagotchi: reduxState.singleTamagotchi
 })
 
 const mapDispatch = dispatch => ({
@@ -46,5 +46,3 @@ const mapDispatch = dispatch => ({
 })
 
 export default withRouter(connect(mapState, mapDispatch)(SingleTamagotchi))
-
-
