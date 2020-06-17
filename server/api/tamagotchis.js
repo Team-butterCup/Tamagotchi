@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const {Tamagotchi} = require('../db/models')
+const {Tamagotchi, Review} = require('../db/models')
+
 router.get('/', async (req, res, next) => {
   try {
     const tamagotchi = await Tamagotchi.findAll()
@@ -8,9 +9,12 @@ router.get('/', async (req, res, next) => {
     next(error)
   }
 })
+
 router.get('/:tamagotchiId', async (req, res, next) => {
   try {
-    const tamagotchi = await Tamagotchi.findByPk(req.params.tamagotchiId)
+    const tamagotchi = await Tamagotchi.findByPk(req.params.tamagotchiId, {
+      include: [Review]
+    })
     if (!tamagotchi) {
       return res.status(404)
     } else {
@@ -20,6 +24,7 @@ router.get('/:tamagotchiId', async (req, res, next) => {
     next(error)
   }
 })
+
 router.post('/', async (req, res, next) => {
   try {
     const {
@@ -29,6 +34,7 @@ router.post('/', async (req, res, next) => {
       quantity,
       imageUrl
     } = req.body.newTamagotchi
+
     const newTamagotchi = await Tamagotchi.create({
       name,
       description,
@@ -41,6 +47,7 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
 router.delete('/:tamagotchiId', async (req, res, next) => {
   try {
     const tamagotchi = await Tamagotchi.findByPk(req.params.tamagotchiId)
@@ -51,6 +58,7 @@ router.delete('/:tamagotchiId', async (req, res, next) => {
     next(err)
   }
 })
+
 router.put('/:tamagotchiId', async (req, res, next) => {
   try {
     const tamagotchi = await Tamagotchi.findByPk(req.params.tamagotchiId)
@@ -61,4 +69,5 @@ router.put('/:tamagotchiId', async (req, res, next) => {
     next(err)
   }
 })
+
 module.exports = router
