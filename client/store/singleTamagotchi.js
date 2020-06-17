@@ -23,7 +23,7 @@ export const fetchSingleTamagotchi = tamagotchiId => {
 export default function singleTamagotchiReducer(tamagotchi = {}, action) {
   switch (action.type) {
     case SET_SINGLETAMAGOTCHI: {
-      return action.tamagtochi
+      return action.tamagotchi
     }
     default:
       return tamagotchi

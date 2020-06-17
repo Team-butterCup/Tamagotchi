@@ -18,8 +18,8 @@ export const AllTamagotchis = props => {
       {tamagotchis !== undefined && tamagotchis.length ? (
         tamagotchis.map(tamagotchi => (
           <div key={tamagotchi.id}>
-            <NavLink to={`/Tamagotchis/${tamagotchi.id}`}>
-              <div className="Tamagotchis">
+            <NavLink to={`/tamagotchis/${tamagotchi.id}`}>
+              <div>
                 <div>
                   <img src={tamagotchi.imageUrl} width="100"></img>
                 </div>

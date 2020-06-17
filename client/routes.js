@@ -9,7 +9,7 @@ import {
   AllTamagotchis,
   SingleTamagotchi
 } from './components'
-import {me, fetchTamagotchis} from './store'
+import {me, fetchTamagotchis, fetchReviews} from './store'
 
 /**
  * COMPONENT
@@ -18,6 +18,7 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
     this.props.setTamagotchis()
+    this.props.loadReviews()
   }
 
   render() {
@@ -59,7 +60,8 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
     },
-    setTamagotchis: () => dispatch(fetchTamagotchis())
+    setTamagotchis: () => dispatch(fetchTamagotchis()),
+    loadReviews: () => dispatch(fetchReviews())
   }
 }
 

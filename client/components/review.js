@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchReviews} from '../store/reviews'
+//import {fetchReviews} from '../store/reviews'
 
 const Reviews = props => {
-  const reviewId = Number(props.match.params.tamagotchiId)
+  const tamagotchiId = Number(props.tamagotchiId)
   const reviews = props.reviews.filter(
-    review => reviews.tamagotchiId === tamagotchiId
+    review => review.tamagotchiId === tamagotchiId
   )
 
   return (
@@ -23,11 +23,13 @@ const Reviews = props => {
   )
 }
 
-const mapDispatch = dispatch => {
-  return {
-    loadReviews: () => dispatch(fetchReviews())
-  }
-}
+// I dont think we needed this but I left it in case -daniel
+
+// const mapDispatch = dispatch => {
+//   return {
+//     loadReviews: () => dispatch(fetchReviews())
+//   }
+// }
 
 const mapState = state => {
   return {
@@ -35,4 +37,4 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Reviews)
+export default connect(mapState)(Reviews)
