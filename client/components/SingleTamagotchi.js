@@ -46,3 +46,5 @@ const mapDispatch = dispatch => ({
 })
 
 export default withRouter(connect(mapState, mapDispatch)(SingleTamagotchi))
+
+

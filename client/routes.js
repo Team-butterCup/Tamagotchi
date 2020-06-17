@@ -2,8 +2,14 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
-import {me} from './store'
+import {
+  Login,
+  Signup,
+  UserHome,
+  AllTamagotchis,
+  SingleTamagotchi
+} from './components'
+import {me, fetchTamagotchis} from './store'
 
 /**
  * COMPONENT
@@ -11,6 +17,7 @@ import {me} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    this.props.setTamagotchis()
   }
 
   render() {
@@ -21,6 +28,8 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/tamagotchis/:tamagotchiId" component={SingleTamagotchi} />
+        <Route path="/tamagotchis" component={AllTamagotchis} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -49,7 +58,8 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-    }
+    },
+    setTamagotchis: () => dispatch(fetchTamagotchis())
   }
 }
 

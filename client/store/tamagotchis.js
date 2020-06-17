@@ -4,51 +4,68 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const GET_TAMAGOTCHI = 'GET_TAMAGOTCHI'
+const SET_TAMAGOTCHIS = 'GET_TAMAGOTCHIS'
 const REMOVE_TAMAGOTCHI = 'REMOVE_TAMAGOTCHI'
+const ADD_TAMAGOTCHI = 'ADD_TAMAGOTCHI'
 
 /**
  * INITIAL STATE
  */
-const defaultTamagotchi = []
+const defaultTamagotchis = []
 
 /**
  * ACTION CREATORS
  */
-const getTamagotchi = tamagotchi => ({type: GET_TAMAGOTCHI, tamagotchi})
-const removeTamagotchi = () => ({type: REMOVE_TAMAGOTCHI})
+const setTamagotchis = tamagotchis => ({
+  type: SET_TAMAGOTCHIS,
+  tamagotchis
+})
+
+const removeTamagotchi = () => ({
+  type: REMOVE_TAMAGOTCHI
+})
 
 /**
  * THUNK CREATORS
  */
-export const me = () => async dispatch => {
-  try {
-    const res = await axios.get('/auth/me')
-    dispatch(getTamagotchi(res.data || defaultTamagotchi))
-  } catch (err) {
-    console.error(err)
-  }
-}
 
-export const logout = () => async dispatch => {
+export const fetchTamagotchis = () => async dispatch => {
   try {
-    await axios.post('/auth/logout')
-    dispatch(removeTamagotchi())
-    history.push('/login')
-  } catch (err) {
-    console.error(err)
+    const response = await axios.get('/api/tamagotchis')
+    const data = response.data
+    dispatch(setTamagotchis(data))
+  } catch (error) {
+    console.log('THERE WAS AN ERROR FOOL: ', error)
   }
 }
+// export const me = () => async dispatch => {
+//   try {
+//     const res = await axios.get('/auth/me')
+//     dispatch(getTamagotchi(res.data || defaultTamagotchi))
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
+
+// export const logout = () => async dispatch => {
+//   try {
+//     await axios.post('/auth/logout')
+//     dispatch(removeTamagotchi())
+//     history.push('/login')
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
 
 /**
  * REDUCER
  */
-export default function(state = defaultTamagotchi, action) {
+export default function(state = defaultTamagotchis, action) {
   switch (action.type) {
-    case GET_TAMAGOTCHI:
-      return action.tamagotchi
+    case SET_TAMAGOTCHIS:
+      return action.tamagotchis
     case REMOVE_TAMAGOTCHI:
-      return defaultTamagotchi
+      return defaultTamagotchis
     default:
       return state
   }
