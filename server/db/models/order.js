@@ -1,16 +1,10 @@
 const Sequelize = require('sequelize')
-const db = require('./database')
+const db = require('../db')
 
 const Order = db.define('order', {
-  totalPrice: {
-    type: Sequelize.FLOAT
-  },
-
-  qty: {
-    type: Sequelize.INTEGER
-  },
   status: {
     type: Sequelize.STRING,
+    defaultValue: 'cart',
     validate: {
       isIn: [['cart', 'complete']]
     }

@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const db = require('./database')
+const db = require('../db')
 
 const Review = db.define('review', {
   rating: {
@@ -11,7 +11,8 @@ const Review = db.define('review', {
     }
   },
   description: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
+    defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
   }
 })
 

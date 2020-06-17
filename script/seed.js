@@ -1,7 +1,13 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {
+  User,
+  TamagotchiOrder,
+  Tamagotchi,
+  Order,
+  Review
+} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -9,9 +15,48 @@ async function seed() {
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({email: 'murphy@email.com', password: '123'}),
+    User.create({email: 'admin@email.com', password: '123', isAdmin: true})
   ])
 
+  const tamagotchis = await Promise.all([
+    Tamagotchi.create({name: 'Didi', age: 'preteen', qty: '3'}),
+    Tamagotchi.create({name: 'Xavi', age: 'senior', qty: '2'}),
+    Tamagotchi.create({name: 'Malani', age: 'senior', qty: '100'}),
+    Tamagotchi.create({name: 'Xiaobao', age: 'adult', qty: '20'}),
+    Tamagotchi.create({
+      name: 'Godzilla',
+      age: 'boomer',
+      qty: '1',
+      price: '1000000000'
+    })
+  ])
+
+  const reviews = await Promise.all([
+    Review.create({
+      userId: 1,
+      tamagotchiId: 1
+    }),
+    Review.create({
+      userId: 2,
+      tamagotchiId: 3
+    }),
+    Review.create({
+      userId: 3,
+      tamagotchiId: 5
+    })
+  ])
+  const orders = await Promise.all([
+    Order.create({}),
+    Order.create({}),
+    Order.create({})
+  ])
+  await TamagotchiOrder.bulkCreate([
+    {
+      orderId: 1,
+      tamagotchiId: 1
+    }
+  ])
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }

@@ -1,4 +1,4 @@
-const db = require('./database')
+const db = require('../db')
 const Sequelize = require('sequelize')
 const User = require('./user')
 const Tamagotchi = require('./tamagotchi')
@@ -20,18 +20,21 @@ const Review = require('./review')
 
 const TamagotchiOrder = db.define('TamagotchiOrder', {
   qty: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    validate: {
+      min: 0
+    }
   },
   purchasePrice: {
     type: Sequelize.FLOAT
   }
 })
 
-Order.belongstoMany(Tamagotchi, {
+Order.belongsToMany(Tamagotchi, {
   through: TamagotchiOrder
 })
 
-Tamagotchi.belongstoMany(Order, {
+Tamagotchi.belongsToMany(Order, {
   through: TamagotchiOrder
 })
 
@@ -46,5 +49,6 @@ module.exports = {
   User,
   Tamagotchi,
   Order,
-  Review
+  Review,
+  TamagotchiOrder
 }
