@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Tamagotchi} = require('../db/models')
+const {User, Tamagotchi, Order} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:orderId', async (req, res, next) => {
   try {
-    const order = await Rorder.findByPk(req.params.orderId, {
+    const order = await Order.findByPk(req.params.orderId, {
       include: [User, Tamagotchi]
     })
     res.json(order)
@@ -40,7 +40,7 @@ router.delete('/:Id', (req, res, next) => {
 
 router.put('/:orderId', async (request, response, next) => {
   try {
-    const order = await Rorder.findByPk(request.params.orderId)
+    const order = await Order.findByPk(request.params.orderId)
     await order.update(request.body)
     response.sendStatus(204)
   } catch (err) {

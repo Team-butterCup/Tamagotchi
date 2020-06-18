@@ -10,7 +10,7 @@ import {
   SingleTamagotchi,
   CartOrder
 } from './components'
-import {me, fetchTamagotchis, fetchReviews} from './store'
+import {me, fetchTamagotchis, fetchReviews, fetchAddedOrder} from './store'
 
 /**
  * COMPONENT
@@ -63,7 +63,8 @@ const mapDispatch = dispatch => {
       dispatch(me())
     },
     setTamagotchis: () => dispatch(fetchTamagotchis()),
-    loadReviews: () => dispatch(fetchReviews())
+    loadReviews: () => dispatch(fetchReviews()),
+    getAddedOrder: () => dispatch(fetchAddedOrder())
   }
 }
 

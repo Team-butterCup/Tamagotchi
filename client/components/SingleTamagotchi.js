@@ -3,7 +3,7 @@ import {fetchSingleTamagotchi} from '../store/singleTamagotchi'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Reviews from './review'
-import {Cutout, Window, WindowContent} from 'react95'
+import {Cutout, Window, WindowContent, Button} from 'react95'
 
 class SingleTamagotchi extends React.Component {
   componentDidMount() {
@@ -32,6 +32,7 @@ class SingleTamagotchi extends React.Component {
         <div>
           <Reviews tamagotchiId={id} />
         </div>
+        <Button>Add to Cart</Button>
       </div>
     )
   }

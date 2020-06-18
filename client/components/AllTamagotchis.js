@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 //import AddTamagotchiForm from "./AddTamagotchiForm";
 //import DeleteButton from "./DeleteButton";
-import Hourglass from 'react95'
+import {Hourglass, Button} from 'react95'
 
 export const AllTamagotchis = props => {
   const tamagotchis = props.tamagotchis
@@ -21,11 +21,12 @@ export const AllTamagotchis = props => {
             <NavLink to={`/tamagotchis/${tamagotchi.id}`}>
               <div>
                 <div>
-                  <img src={tamagotchi.imageUrl} width="100"></img>
+                  <img src={tamagotchi.imageUrl} width="100" />
                 </div>
                 <div>{tamagotchi.name}</div>
               </div>
             </NavLink>
+            <Button>Add to Cart</Button>
             {/* <DeleteButton TamagotchiId={Tamagotchi.id} name={Tamagotchi.name} /> */}
           </div>
         ))

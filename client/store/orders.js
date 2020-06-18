@@ -4,9 +4,10 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const GET_ORDER = 'GET_ORDER'
+const GET_ORDERS = 'GET_ORDERS'
 const REMOVE_ORDER = 'REMOVE_ORDER'
 const ADD_ORDER = 'ADD_ORDER'
+const GET_ORDER = 'GET_ORDER'
 
 /**
  * INITIAL STATE
@@ -16,9 +17,10 @@ const defaultOrder = {}
 /**
  * ACTION CREATORS
  */
-const getOrder = order => ({type: GET_ORDER, order})
+const getOrders = orders => ({type: GET_ORDERS, orders})
 const removeOrder = orderId => ({type: REMOVE_ORDER, orderId})
 const addOrder = order => ({type: ADD_ORDER, order})
+const getOrder = order => ({type: GET_ORDER, order})
 
 /**
  * THUNK CREATORS
@@ -26,6 +28,15 @@ const addOrder = order => ({type: ADD_ORDER, order})
 export const fetchOrder = () => async dispatch => {
   try {
     const data = await axios.get('/api/orders')
+    dispatch(getOrders(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const fetchSingleOrder = orderId => async dispatch => {
+  try {
+    const data = await axios.get(`/api/orders/${orderId}`)
     dispatch(getOrder(data))
   } catch (err) {
     console.error(err)
@@ -53,10 +64,10 @@ export const removeOrderThunk = orderId => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultOrder, action) {
+export default function orderReducer(state = defaultOrder, action) {
   switch (action.type) {
-    case GET_ORDER:
-      return action.order
+    case GET_ORDERS:
+      return action.orders
     case REMOVE_ORDER:
       return state.filter(order => order.id !== action.orderId)
     case ADD_ORDER:
