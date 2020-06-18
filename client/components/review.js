@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import AddReviewForm from './AddReviewForm'
 //import {fetchReviews} from '../store/reviews'
 
 const Reviews = props => {
@@ -11,6 +12,7 @@ const Reviews = props => {
 
   return (
     <div>
+      <AddReviewForm />
       {reviews.map(review => (
         <div key={review.id} className="customer reviews">
           <Link to={`/reviews/${review.id}`}>

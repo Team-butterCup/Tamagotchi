@@ -22,7 +22,7 @@ const App = () => {
   return (
     <div>
       <ResetStyles />
-      <ThemeProvider theme={themes.lilacRoseDark}>
+      <ThemeProvider theme={themes.water}>
         <Window
           style={{
             width: '100vw',
