@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 import Hourglass from 'react95'
 
-export const cartOrder = props => {
+export const addCartOrder = props => {
   const order = props.order
   return <div />
 }
@@ -15,4 +15,4 @@ const mapStateToProps = reduxState => {
   }
 }
 
-export default connect(mapStateToProps)(cartOrder)
+export default connect(mapStateToProps)(addCartOrder)
