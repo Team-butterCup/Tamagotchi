@@ -3,10 +3,10 @@ import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 //import AddTamagotchiForm from "./AddTamagotchiForm";
 //import DeleteButton from "./DeleteButton";
+import Hourglass from 'react95'
 
 export const AllTamagotchis = props => {
   const tamagotchis = props.tamagotchis
-  console.log(tamagotchis)
   return (
     <div>
       <div>
@@ -30,7 +30,7 @@ export const AllTamagotchis = props => {
           </div>
         ))
       ) : (
-        <h2>Loading</h2>
+        <Hourglass size={32} />
       )}
     </div>
   )

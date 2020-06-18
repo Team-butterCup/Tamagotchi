@@ -3,28 +3,46 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {Cutout, Tabs, TabBody, Bar, AppBar, Toolbar} from 'react95'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>GOT TAMAGOTCHI?</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/tamagotchis">Adopt a Pet</Link>
-        </div>
-      )}
-    </nav>
+    <Cutout>
+      <nav>
+        {isLoggedIn ? (
+          <div>
+            {/* The navbar will show these links after you log in */}
+
+            <div>
+              <Link to="/home">Home</Link>
+
+              <Link to="/tamagotchis">Adopt A Tamagotchi!</Link>
+            </div>
+            <div>
+              <Bar />
+              <a href="#" onClick={handleClick}>
+                Logout
+              </a>
+              <Bar />
+            </div>
+          </div>
+        ) : (
+          <div>
+            {/* The navbar will show these links before you log in */}
+
+            <div>
+              <Link to="/tamagotchis">Adopt A Tamagotchi!</Link>
+            </div>
+            <div>
+              <Bar />
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+              <Bar />
+            </div>
+          </div>
+        )}
+      </nav>
+    </Cutout>
     <hr />
   </div>
 )
