@@ -7,9 +7,16 @@ import {
   Signup,
   UserHome,
   AllTamagotchis,
-  SingleTamagotchi
+  SingleTamagotchi,
+  CartOrder
 } from './components'
-import {me, fetchTamagotchis, fetchReviews} from './store'
+import {
+  me,
+  fetchTamagotchis,
+  fetchReviews,
+  createOrderThunk,
+  fetchOrders
+} from './store'
 
 /**
  * COMPONENT
@@ -19,6 +26,14 @@ class Routes extends Component {
     await this.props.loadInitialData()
     await this.props.setTamagotchis()
     await this.props.loadReviews()
+
+
+    if (this.props.isLoggedIn) {
+      console.log('Hey, we made it!')
+      await this.props.createOrder({userId: this.props.user.id})
+    }
+    this.props.setOrders()
+
   }
 
   render() {
@@ -31,6 +46,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/tamagotchis/:tamagotchiId" component={SingleTamagotchi} />
         <Route path="/tamagotchis" component={AllTamagotchis} />
+        <Route path="/orders" component={CartOrder} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -52,7 +68,10 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
+
+    user: state.user,
     userId: state.user.id
+
   }
 }
 
@@ -62,7 +81,9 @@ const mapDispatch = dispatch => {
       dispatch(me())
     },
     setTamagotchis: () => dispatch(fetchTamagotchis()),
-    loadReviews: () => dispatch(fetchReviews())
+    loadReviews: () => dispatch(fetchReviews()),
+    createOrder: order => dispatch(createOrderThunk(order)),
+    setOrders: () => dispatch(fetchOrders())
   }
 }
 

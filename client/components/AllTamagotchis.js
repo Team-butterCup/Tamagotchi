@@ -4,7 +4,10 @@ import {NavLink, withRouter} from 'react-router-dom'
 
 //import AddTamagotchiForm from "./AddTamagotchiForm";
 //import DeleteButton from "./DeleteButton";
-import {Hourglass} from 'react95'
+
+import AddCartOrder from './AddCartOrder'
+import RemoveCartOrder from './RemoveCartOrder'
+import {Hourglass, Button} from 'react95'
 
 const AllTamagotchis = props => {
   const tamagotchis = props.tamagotchis
@@ -22,11 +25,13 @@ const AllTamagotchis = props => {
             <NavLink to={`/tamagotchis/${tamagotchi.id}`}>
               <div>
                 <div>
-                  <img src={tamagotchi.imageUrl} width="100"></img>
+                  <img src={tamagotchi.imageUrl} width="100" />
                 </div>
                 <div>{tamagotchi.name}</div>
               </div>
             </NavLink>
+            <AddCartOrder />
+            <RemoveCartOrder />
             {/* <DeleteButton TamagotchiId={Tamagotchi.id} name={Tamagotchi.name} /> */}
           </div>
         ))

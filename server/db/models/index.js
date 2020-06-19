@@ -21,6 +21,7 @@ const Review = require('./review')
 const TamagotchiOrder = db.define('TamagotchiOrder', {
   qty: {
     type: Sequelize.INTEGER,
+    defaultValue: 1,
     validate: {
       min: 0
     }

@@ -19,6 +19,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               <Link to="/tamagotchis">Adopt A Tamagotchi!</Link>
             </div>
             <div>
+              <Link to="/orders">Cart</Link>
+            </div>
+            <div>
               <Bar />
               <a href="#" onClick={handleClick}>
                 Logout
@@ -32,6 +35,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
 
             <div>
               <Link to="/tamagotchis">Adopt A Tamagotchi!</Link>
+            </div>
+            <div>
+              <Link to="/orders">Cart</Link>
             </div>
             <div>
               <Bar />
