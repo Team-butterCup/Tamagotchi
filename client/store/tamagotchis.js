@@ -4,7 +4,7 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const SET_TAMAGOTCHIS = 'GET_TAMAGOTCHIS'
+const SET_TAMAGOTCHIS = 'SET_TAMAGOTCHIS'
 const REMOVE_TAMAGOTCHI = 'REMOVE_TAMAGOTCHI'
 const ADD_TAMAGOTCHI = 'ADD_TAMAGOTCHI'
 
@@ -25,14 +25,20 @@ const removeTamagotchi = () => ({
   type: REMOVE_TAMAGOTCHI
 })
 
+//promisified delay function
+
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 /**
  * THUNK CREATORS
  */
 
 export const fetchTamagotchis = () => async dispatch => {
   try {
-    const response = await axios.get('/api/tamagotchis')
-    const data = response.data
+    //await timeout(3000)
+    const {data} = await axios.get('/api/tamagotchis')
     dispatch(setTamagotchis(data))
   } catch (error) {
     console.log('THERE WAS AN ERROR FOOL: ', error)
