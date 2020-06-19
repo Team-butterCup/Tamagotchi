@@ -23,7 +23,12 @@ router.get('/:orderId', async (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  Order.create(req.body)
+  Order.findOrCreate({
+    where: {
+      status: 'cart',
+      userId: req.user.id
+    }
+  })
     .then(order => res.json(order))
     .catch(next)
 })

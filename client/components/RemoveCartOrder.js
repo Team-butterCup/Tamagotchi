@@ -3,11 +3,16 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {removeOrder} from '../store/orders'
 
-import Hourglass from 'react95'
+import {Button} from 'react95'
 
-export const removeCartOrder = props => {
+export const RemoveCartOrder = props => {
   const order = props.order
-  return <div />
+  return (
+    <div>
+      {' '}
+      <Button>Remove from Cart</Button>
+    </div>
+  )
 }
 
 const mapStateToProps = reduxState => {
@@ -16,4 +21,4 @@ const mapStateToProps = reduxState => {
   }
 }
 
-export default connect(mapStateToProps)(removeCartOrder)
+export default connect(mapStateToProps)(RemoveCartOrder)

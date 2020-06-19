@@ -13,13 +13,7 @@ export const cartOrder = props => {
     <div>
       <h1>Cart</h1>{' '}
       <form>
-        {/* <Button>
-					+<addCartOrder />
-				</Button> */}
         <input name="qty" type="number" min="0" max="1000" />
-        {/* <Button>
-					-<removeCartOrder />
-				</Button> */}
       </form>
     </div>
   )

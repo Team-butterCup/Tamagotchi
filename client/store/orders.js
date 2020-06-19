@@ -43,7 +43,7 @@ export const fetchSingleOrder = orderId => async dispatch => {
   }
 }
 
-export const fetchAddedOrder = newOrder => async dispatch => {
+export const addOrderThunk = newOrder => async dispatch => {
   try {
     const {data: addedOrder} = await axios.get('/api/orders', newOrder)
     dispatch(addOrder(addedOrder))
@@ -68,6 +68,8 @@ export default function orderReducer(state = defaultOrder, action) {
   switch (action.type) {
     case GET_ORDERS:
       return action.orders
+    case GET_ORDER:
+      return action.order
     case REMOVE_ORDER:
       return state.filter(order => order.id !== action.orderId)
     case ADD_ORDER:

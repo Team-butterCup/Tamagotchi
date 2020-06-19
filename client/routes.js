@@ -10,7 +10,7 @@ import {
   SingleTamagotchi,
   CartOrder
 } from './components'
-import {me, fetchTamagotchis, fetchReviews, fetchAddedOrder} from './store'
+import {me, fetchTamagotchis, fetchReviews, addOrderThunk} from './store'
 
 /**
  * COMPONENT
@@ -20,6 +20,10 @@ class Routes extends Component {
     this.props.loadInitialData()
     this.props.setTamagotchis()
     this.props.loadReviews()
+
+    if (this.props.isLoggedIn) {
+      this.props.addOrder({userId: this.props.user.id})
+    }
   }
 
   render() {
@@ -53,7 +57,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
@@ -64,7 +69,7 @@ const mapDispatch = dispatch => {
     },
     setTamagotchis: () => dispatch(fetchTamagotchis()),
     loadReviews: () => dispatch(fetchReviews()),
-    getAddedOrder: () => dispatch(fetchAddedOrder())
+    addOrder: order => dispatch(addOrderThunk(order))
   }
 }
 

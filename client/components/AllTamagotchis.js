@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 //import AddTamagotchiForm from "./AddTamagotchiForm";
 //import DeleteButton from "./DeleteButton";
+import AddCartOrder from './AddCartOrder'
+import RemoveCartOrder from './RemoveCartOrder'
 import {Hourglass, Button} from 'react95'
 
 export const AllTamagotchis = props => {
@@ -26,7 +28,8 @@ export const AllTamagotchis = props => {
                 <div>{tamagotchi.name}</div>
               </div>
             </NavLink>
-            <Button>Add to Cart</Button>
+            <AddCartOrder />
+            <RemoveCartOrder />
             {/* <DeleteButton TamagotchiId={Tamagotchi.id} name={Tamagotchi.name} /> */}
           </div>
         ))

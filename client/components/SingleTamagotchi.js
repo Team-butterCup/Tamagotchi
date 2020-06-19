@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Reviews from './review'
 import {Cutout, Window, WindowContent, Button} from 'react95'
+import AddCartOrder from './AddCartOrder'
+import RemoveCartOrder from './RemoveCartOrder'
 
 class SingleTamagotchi extends React.Component {
   componentDidMount() {
@@ -32,7 +34,8 @@ class SingleTamagotchi extends React.Component {
         <div>
           <Reviews tamagotchiId={id} />
         </div>
-        <Button>Add to Cart</Button>
+        <AddCartOrder />
+        <RemoveCartOrder />
       </div>
     )
   }
