@@ -1,3 +1,10 @@
+const initialState = {
+  rating: 5,
+  description: '',
+  userId: null,
+  tamagotchiId: null
+}
+
 const DRAFT = 'DRAFT'
 const RESET = 'RESET'
 
@@ -10,13 +17,13 @@ export const resetDraft = () => ({
   type: RESET
 })
 
-export default function draftReducer(state = {}, action) {
+export default function draftReducer(state = initialState, action) {
   switch (action.type) {
     case DRAFT: {
       return {...state, ...action.draft}
     }
     case RESET: {
-      return {}
+      return initialState
     }
     default:
       return state

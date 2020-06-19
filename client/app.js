@@ -22,11 +22,13 @@ const App = () => {
   return (
     <div>
       <ResetStyles />
-      <ThemeProvider theme={themes.water}>
+      <ThemeProvider theme={themes.lilacRoseDark}>
         <Window
           style={{
             width: '100vw',
-            height: '100vh'
+            height: '100vh',
+            position: 'absolute',
+            overflow: 'auto'
           }}
         >
           <WindowHeader>👾 gotTamagotchi?.exe</WindowHeader>

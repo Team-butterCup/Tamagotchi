@@ -5,6 +5,7 @@ import axios from 'axios'
  */
 const GET_REVIEWS = 'GET_REVIEWS'
 const REMOVE_REVIEWS = 'REMOVE_REVIEWS'
+const ADD_REVIEW = 'ADD_REVIEW'
 
 /**
  * INITIAL STATE
@@ -15,6 +16,7 @@ const defaultReviews = []
  * ACTION CREATORS
  */
 const getReviews = reviews => ({type: GET_REVIEWS, reviews})
+const addReview = review => ({type: ADD_REVIEW, review})
 const removeReviews = () => ({type: REMOVE_REVIEWS})
 
 /**
@@ -31,7 +33,8 @@ export const fetchReviews = () => async dispatch => {
 export const postReview = review => async dispatch => {
   try {
     const res = await axios.post('/api/reviews', review)
-    dispatch(getReviews(res.data || defaultReviews))
+    console.log(res.data)
+    dispatch(addReview(res.data))
   } catch (err) {
     console.log('THERE WAS AN ERROR FOOL: ', err)
   }
@@ -44,6 +47,8 @@ export default function(state = defaultReviews, action) {
   switch (action.type) {
     case GET_REVIEWS:
       return [...state, ...action.reviews]
+    case ADD_REVIEW:
+      return [...state, action.review]
     case REMOVE_REVIEWS:
       return defaultReviews
     default:

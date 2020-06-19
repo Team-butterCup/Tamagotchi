@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {updateDraft, resetDraft, postReview} from '../store'
+import {withRouter} from 'react-router-dom'
 
 import {TextField, Button, Toolbar, Cutout, NumberField} from 'react95'
 
@@ -11,44 +12,72 @@ class ControlledTextFieldExample extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.reset = this.reset.bind(this)
   }
-  componentDidMount() {
-    this.props.updateDraft({
+  async componentDidMount() {
+    await this.props.updateDraft({
       rating: 5,
       description: ''
     })
   }
 
   handleChange(e) {
-    this.props.updateDraft({[e.target.name]: e.target.value})
+    if (typeof e === 'number') this.props.updateDraft({rating: e})
+    else this.props.updateDraft({[e.target.name]: e.target.value})
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault()
-    this.props.postProject(this.props.projectDraft)
+    await this.props.updateDraft({
+      tamagotchiId: Number(this.props.tamagotchiId),
+      userId: this.props.user.id || null
+    })
+    await this.props.postReview(this.props.draft)
     this.props.resetDraft()
   }
-  reset(e) {
+  reset() {
     this.props.resetDraft()
   }
   render() {
     return (
       <Toolbar>
         <form>
-          <NumberField
-            value={this.props.draft.rating}
-            name="rating"
-            min="1"
-            max="5"
-            width={94}
-            onChange={this.handleChange}
-          />
-          <TextField
-            value={this.props.draft.description}
-            onChange={this.handleChange}
-          />
-          <Button onClick={this.reset} style={{marginLeft: '2px'}}>
-            Reset
-          </Button>
+          <div>
+            <Cutout>
+              <div style={{flexDirection: 'column'}}>
+                <p style={{lineHeight: 1.3}}>Rate this Tamagotchi!</p>
+                <NumberField
+                  style={{flexDirection: 'row'}}
+                  value={this.props.draft.rating}
+                  min={1}
+                  max={5}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <TextField
+                  value={this.props.draft.description}
+                  name="description"
+                  onChange={this.handleChange}
+                />
+                <div
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                    width: '100%'
+                  }}
+                >
+                  <Button onClick={this.reset} style={{marginLeft: '2px'}}>
+                    Reset
+                  </Button>
+                  <Button
+                    onClick={this.handleSubmit}
+                    style={{marginLeft: '2px'}}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </div>
+            </Cutout>
+          </div>
         </form>
       </Toolbar>
     )
@@ -57,7 +86,8 @@ class ControlledTextFieldExample extends React.Component {
 
 const mapState = reduxState => {
   return {
-    draft: reduxState.draft
+    draft: reduxState.reviewDraft,
+    user: reduxState.user
   }
 }
 
@@ -69,4 +99,6 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(ControlledTextFieldExample)
+export default withRouter(
+  connect(mapState, mapDispatch)(ControlledTextFieldExample)
+)
