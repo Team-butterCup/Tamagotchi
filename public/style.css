@@ -10,9 +10,9 @@ a {
   text-decoration: none;
 }
 
-label {
+/* label {
   display: block;
-}
+} */
 
 nav a {
   margin: 1em;
@@ -26,8 +26,14 @@ nav div {
 }
 
 form div {
-  margin: 1em;
-  display: inline-block;
+  margin: 0.4em;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+form {
+  display: flex;
 }
 
 input[type='number']::-webkit-inner-spin-button,

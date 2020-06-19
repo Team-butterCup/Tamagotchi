@@ -26,7 +26,9 @@ const App = () => {
         <Window
           style={{
             width: '100vw',
-            height: '100vh'
+            height: '100vh',
+            position: 'absolute',
+            overflow: 'auto'
           }}
         >
           <WindowHeader>👾 gotTamagotchi?.exe</WindowHeader>

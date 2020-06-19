@@ -8,6 +8,8 @@ import reviews from './reviews'
 import tamagotchis from './tamagotchis'
 import singleTamagotchi from './singleTamagotchi'
 import cart from './cart'
+import reviewDraft from './reviewDraft'
+
 
 const reducer = combineReducers({
   user,
@@ -15,7 +17,8 @@ const reducer = combineReducers({
   reviews,
   tamagotchis,
   singleTamagotchi,
-  cart
+  cart,
+  reviewDraft
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -29,3 +32,5 @@ export * from './reviews'
 export * from './tamagotchis'
 export * from './singleTamagotchi'
 export * from './cart'
+export * from './reviewDraft'
+

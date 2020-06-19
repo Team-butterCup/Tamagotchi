@@ -27,11 +27,13 @@ class Routes extends Component {
     await this.props.setTamagotchis()
     await this.props.loadReviews()
 
+
     if (this.props.isLoggedIn) {
       console.log('Hey, we made it!')
       await this.props.createOrder({userId: this.props.user.id})
     }
     this.props.setOrders()
+
   }
 
   render() {
@@ -66,7 +68,10 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
-    user: state.user
+
+    user: state.user,
+    userId: state.user.id
+
   }
 }
 

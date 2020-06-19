@@ -1,13 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {NavLink} from 'react-router-dom'
+import {NavLink, withRouter} from 'react-router-dom'
+
 //import AddTamagotchiForm from "./AddTamagotchiForm";
 //import DeleteButton from "./DeleteButton";
+
 import AddCartOrder from './AddCartOrder'
 import RemoveCartOrder from './RemoveCartOrder'
 import {Hourglass, Button} from 'react95'
 
-export const AllTamagotchis = props => {
+const AllTamagotchis = props => {
   const tamagotchis = props.tamagotchis
   return (
     <div>
@@ -34,16 +36,19 @@ export const AllTamagotchis = props => {
           </div>
         ))
       ) : (
-        <Hourglass size={32} />
+        <div>
+          <Hourglass size={32} />
+          {/* <h1> loading... </h1> */}
+        </div>
       )}
     </div>
   )
 }
 
-const mapStateToProps = reduxState => {
+const mapState = reduxState => {
   return {
     tamagotchis: reduxState.tamagotchis
   }
 }
 
-export default connect(mapStateToProps)(AllTamagotchis)
+export default withRouter(connect(mapState)(AllTamagotchis))
