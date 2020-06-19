@@ -6,28 +6,28 @@ import history from '../history'
  */
 const GET_ORDERS = 'GET_ORDERS'
 const REMOVE_ORDER = 'REMOVE_ORDER'
-const ADD_ORDER = 'ADD_ORDER'
+const CREATE_ORDER = 'CREATE_ORDER'
 const GET_ORDER = 'GET_ORDER'
 
 /**
  * INITIAL STATE
  */
-const defaultOrder = {}
+const defaultOrder = []
 
 /**
  * ACTION CREATORS
  */
 const getOrders = orders => ({type: GET_ORDERS, orders})
 const removeOrder = orderId => ({type: REMOVE_ORDER, orderId})
-const addOrder = order => ({type: ADD_ORDER, order})
+const createOrder = order => ({type: CREATE_ORDER, order})
 const getOrder = order => ({type: GET_ORDER, order})
 
 /**
  * THUNK CREATORS
  */
-export const fetchOrder = () => async dispatch => {
+export const fetchOrders = () => async dispatch => {
   try {
-    const data = await axios.get('/api/orders')
+    const {data} = await axios.get('/api/orders')
     dispatch(getOrders(data))
   } catch (err) {
     console.error(err)
@@ -36,17 +36,17 @@ export const fetchOrder = () => async dispatch => {
 
 export const fetchSingleOrder = orderId => async dispatch => {
   try {
-    const data = await axios.get(`/api/orders/${orderId}`)
+    const {data} = await axios.get(`/api/orders/${orderId}`)
     dispatch(getOrder(data))
   } catch (err) {
     console.error(err)
   }
 }
 
-export const addOrderThunk = newOrder => async dispatch => {
+export const createOrderThunk = newOrder => async dispatch => {
   try {
-    const {data: addedOrder} = await axios.get('/api/orders', newOrder)
-    dispatch(addOrder(addedOrder))
+    const {data} = await axios.post('/api/orders', newOrder)
+    dispatch(createOrder(data))
   } catch (err) {
     console.error(err)
   }
@@ -54,7 +54,7 @@ export const addOrderThunk = newOrder => async dispatch => {
 
 export const removeOrderThunk = orderId => async dispatch => {
   try {
-    await axios.get(`/api/orders/${orderId}`)
+    await axios.delete(`/api/orders/${orderId}`)
     dispatch(removeOrder(orderId))
   } catch (err) {
     console.error(err)
@@ -72,7 +72,7 @@ export default function orderReducer(state = defaultOrder, action) {
       return action.order
     case REMOVE_ORDER:
       return state.filter(order => order.id !== action.orderId)
-    case ADD_ORDER:
+    case CREATE_ORDER:
       return [...state, action.order]
     default:
       return state

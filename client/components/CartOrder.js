@@ -2,16 +2,16 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import addCartOrder from './AddCartOrder'
-import removeCartOrder from './RemoveCartOrder'
-
-import {Button} from 'react95'
-
 export const cartOrder = props => {
-  const order = props.order
+  const orders = props.orders
+  const cart = orders.filter(
+    order => order.userId === props.user.id && order.status === 'cart'
+  )[0]
+  // const tamagotchiOrders = cart.getTamagotchis()
+  // console.log('tamagotchiOrders', tamagotchiOrders)
   return (
     <div>
-      <h1>Cart</h1>{' '}
+      <h1>Cart</h1>
       <form>
         <input name="qty" type="number" min="0" max="1000" />
       </form>
@@ -21,7 +21,8 @@ export const cartOrder = props => {
 
 const mapStateToProps = reduxState => {
   return {
-    order: reduxState.order
+    orders: reduxState.orders,
+    user: reduxState.user
   }
 }
 

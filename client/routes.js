@@ -10,20 +10,28 @@ import {
   SingleTamagotchi,
   CartOrder
 } from './components'
-import {me, fetchTamagotchis, fetchReviews, addOrderThunk} from './store'
+import {
+  me,
+  fetchTamagotchis,
+  fetchReviews,
+  createOrderThunk,
+  fetchOrders
+} from './store'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData()
-    this.props.setTamagotchis()
-    this.props.loadReviews()
+  async componentDidMount() {
+    await this.props.loadInitialData()
+    await this.props.setTamagotchis()
+    await this.props.loadReviews()
 
     if (this.props.isLoggedIn) {
-      this.props.addOrder({userId: this.props.user.id})
+      console.log('Hey, we made it!')
+      await this.props.createOrder({userId: this.props.user.id})
     }
+    this.props.setOrders()
   }
 
   render() {
@@ -69,7 +77,8 @@ const mapDispatch = dispatch => {
     },
     setTamagotchis: () => dispatch(fetchTamagotchis()),
     loadReviews: () => dispatch(fetchReviews()),
-    addOrder: order => dispatch(addOrderThunk(order))
+    createOrder: order => dispatch(createOrderThunk(order)),
+    setOrders: () => dispatch(fetchOrders())
   }
 }
 

@@ -8,7 +8,6 @@ export const addCartOrder = props => {
   const order = props.order
   return (
     <div>
-      {' '}
       <Button>Add to Cart</Button>
     </div>
   )

@@ -7,13 +7,15 @@ import orders from './orders'
 import reviews from './reviews'
 import tamagotchis from './tamagotchis'
 import singleTamagotchi from './singleTamagotchi'
+import cart from './cart'
 
 const reducer = combineReducers({
   user,
   orders,
   reviews,
   tamagotchis,
-  singleTamagotchi
+  singleTamagotchi,
+  cart
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -26,3 +28,4 @@ export * from './orders'
 export * from './reviews'
 export * from './tamagotchis'
 export * from './singleTamagotchi'
+export * from './cart'

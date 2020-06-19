@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Tamagotchi, Order} = require('../db/models')
+const {User, Tamagotchi, Order, TamagotchiOrder} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -22,15 +22,20 @@ router.get('/:orderId', async (req, res, next) => {
   }
 })
 
-router.post('/', (req, res, next) => {
-  Order.findOrCreate({
-    where: {
-      status: 'cart',
-      userId: req.user.id
-    }
-  })
-    .then(order => res.json(order))
-    .catch(next)
+router.post('/', async (req, res, next) => {
+  console.log('req.body', req.body)
+  try {
+    const order = await Order.findOrCreate({
+      where: {
+        status: 'cart',
+        userId: req.user.id
+      }
+    })
+    console.log('order', order)
+    res.json(order)
+  } catch (err) {
+    next(err)
+  }
 })
 
 router.delete('/:Id', (req, res, next) => {
