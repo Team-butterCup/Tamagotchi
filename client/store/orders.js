@@ -12,7 +12,10 @@ const GET_ORDER = 'GET_ORDER'
 /**
  * INITIAL STATE
  */
-const defaultOrder = []
+const ordersAndCart = {
+  orders: [],
+  cart: {}
+}
 
 /**
  * ACTION CREATORS
@@ -52,6 +55,16 @@ export const createOrderThunk = newOrder => async dispatch => {
   }
 }
 
+export const createTamagotchiOrderThunk = ids => async dispatch => {
+  try {
+    console.log(ids)
+    const {data} = await axios.post(`/api/orders/${ids.cartId}`, ids)
+    // dispatch(createOrder(data));
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const removeOrderThunk = orderId => async dispatch => {
   try {
     await axios.delete(`/api/orders/${orderId}`)
@@ -64,16 +77,20 @@ export const removeOrderThunk = orderId => async dispatch => {
 /**
  * REDUCER
  */
-export default function orderReducer(state = defaultOrder, action) {
+export default function orderReducer(state = ordersAndCart, action) {
   switch (action.type) {
     case GET_ORDERS:
-      return action.orders
+      return {...state, orders: action.orders}
     case GET_ORDER:
       return action.order
     case REMOVE_ORDER:
       return state.filter(order => order.id !== action.orderId)
     case CREATE_ORDER:
-      return [...state, action.order]
+      return {
+        ...state,
+        orders: [...state.orders, action.order],
+        cart: action.order
+      }
     default:
       return state
   }

@@ -38,14 +38,20 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:Id', (req, res, next) => {
-  Order.destroy({
-    where: {
-      id: req.params.orderId
-    }
-  })
-    .then(() => res.status(204).end())
-    .catch(next)
+router.post('/:orderId', async (req, res, next) => {
+  console.log('req.body', req.body)
+  try {
+    const tamagotchiOrder = await TamagotchiOrder.create({
+      where: {
+        orderId: req.body.orderId,
+        tamagotchiId: req.body.tamagotchiId
+      }
+    })
+    console.log('order', order)
+    res.json(tamagotchiOrder)
+  } catch (err) {
+    next(err)
+  }
 })
 
 router.put('/:orderId', async (request, response, next) => {
@@ -56,4 +62,14 @@ router.put('/:orderId', async (request, response, next) => {
   } catch (err) {
     next(err)
   }
+})
+
+router.delete('/:Id', (req, res, next) => {
+  Order.destroy({
+    where: {
+      id: req.params.orderId
+    }
+  })
+    .then(() => res.status(204).end())
+    .catch(next)
 })
