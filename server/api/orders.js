@@ -60,7 +60,6 @@ router.post('/:orderId', async (req, res, next) => {
 
 router.put('/', async (req, res, next) => {
   try {
-    console.log('holy shit it worked!!!')
     await TamagotchiOrder.update(
       {
         qty: Sequelize.literal('qty + 1')
@@ -75,12 +74,12 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:Id', (req, res, next) => {
-  Order.destroy({
-    where: {
-      id: req.params.orderId
-    }
-  })
-    .then(() => res.status(204).end())
-    .catch(next)
+router.delete('/', async (req, res, next) => {
+  try {
+    await TamagotchiOrder.destroy({
+      where: req.body
+    })
+  } catch (err) {
+    next(err)
+  }
 })

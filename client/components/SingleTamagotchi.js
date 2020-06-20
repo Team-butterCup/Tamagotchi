@@ -34,7 +34,7 @@ class SingleTamagotchi extends React.Component {
         <div>
           <Reviews tamagotchiId={id} />
         </div>
-        <AddCartOrder />
+        <AddCartOrder tamagotchiId={id} price={price} />
         <RemoveCartOrder />
       </div>
     )
@@ -50,5 +50,4 @@ const mapDispatch = dispatch => ({
     dispatch(fetchSingleTamagotchi(tamagotchiId))
 })
 
-// what is the withRouter part doing here? -daniel
 export default withRouter(connect(mapState, mapDispatch)(SingleTamagotchi))
