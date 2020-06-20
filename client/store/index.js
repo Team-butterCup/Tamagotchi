@@ -7,7 +7,6 @@ import ordersAndCart from './orders'
 import reviews from './reviews'
 import tamagotchis from './tamagotchis'
 import singleTamagotchi from './singleTamagotchi'
-import cart from './cart'
 import reviewDraft from './reviewDraft'
 
 const reducer = combineReducers({
@@ -16,7 +15,6 @@ const reducer = combineReducers({
   reviews,
   tamagotchis,
   singleTamagotchi,
-  cart,
   reviewDraft
 })
 const middleware = composeWithDevTools(
@@ -30,5 +28,4 @@ export * from './orders'
 export * from './reviews'
 export * from './tamagotchis'
 export * from './singleTamagotchi'
-export * from './cart'
 export * from './reviewDraft'
