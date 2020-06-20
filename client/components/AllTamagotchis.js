@@ -30,7 +30,10 @@ const AllTamagotchis = props => {
                 <div>{tamagotchi.name}</div>
               </div>
             </NavLink>
-            <AddCartOrder tamagotchiId={tamagotchi.id} />
+            <AddCartOrder
+              tamagotchiId={tamagotchi.id}
+              price={tamagotchi.price}
+            />
             <RemoveCartOrder />
             {/* <DeleteButton TamagotchiId={Tamagotchi.id} name={Tamagotchi.name} /> */}
           </div>

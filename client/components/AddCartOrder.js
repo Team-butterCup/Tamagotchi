@@ -8,13 +8,15 @@ import {Button} from 'react95'
 export const addCartOrder = props => {
   const orderId = props.cart.id
   const tamagotchiId = props.tamagotchiId
+  const purchasePrice = props.price
   return (
     <div>
       <Button
         onClick={() =>
           props.createTamagotchiOrder({
             orderId,
-            tamagotchiId
+            tamagotchiId,
+            purchasePrice
           })
         }
       >
