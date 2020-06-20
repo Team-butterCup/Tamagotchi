@@ -23,7 +23,7 @@ router.get('/:orderId', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  console.log('req.body', req.body)
+  //console.log('req.body', req.body)
   try {
     const order = await Order.findOrCreate({
       where: {
@@ -31,7 +31,6 @@ router.post('/', async (req, res, next) => {
         userId: req.user.id
       }
     })
-    console.log('order', order)
     res.json(order)
   } catch (err) {
     next(err)
@@ -39,15 +38,12 @@ router.post('/', async (req, res, next) => {
 })
 
 router.post('/:orderId', async (req, res, next) => {
-  console.log('req.body', req.body)
   try {
+    console.log('OMFG WE MADE IT HERE DONT MISS ME\n')
     const tamagotchiOrder = await TamagotchiOrder.create({
-      where: {
-        orderId: req.body.orderId,
-        tamagotchiId: req.body.tamagotchiId
-      }
+      orderId: req.body.orderId,
+      tamagotchiId: req.body.tamagotchiId
     })
-    console.log('order', order)
     res.json(tamagotchiOrder)
   } catch (err) {
     next(err)

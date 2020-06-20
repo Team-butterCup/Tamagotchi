@@ -1,19 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {createTamagotchiOrderThunk} from '../store'
 
 import {Button} from 'react95'
 
 export const addCartOrder = props => {
-  const cartId = props.cart[0].id
+  const orderId = props.cart.id
   const tamagotchiId = props.tamagotchiId
   return (
     <div>
       <Button
         onClick={() =>
           props.createTamagotchiOrder({
-            cartId,
+            orderId,
             tamagotchiId
           })
         }
@@ -36,4 +36,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(addCartOrder)
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(addCartOrder)
+)

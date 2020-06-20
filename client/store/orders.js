@@ -49,7 +49,7 @@ export const fetchSingleOrder = orderId => async dispatch => {
 export const createOrderThunk = newOrder => async dispatch => {
   try {
     const {data} = await axios.post('/api/orders', newOrder)
-    dispatch(createOrder(data))
+    dispatch(createOrder(data[0]))
   } catch (err) {
     console.error(err)
   }
@@ -57,8 +57,7 @@ export const createOrderThunk = newOrder => async dispatch => {
 
 export const createTamagotchiOrderThunk = ids => async dispatch => {
   try {
-    console.log(ids)
-    const {data} = await axios.post(`/api/orders/${ids.cartId}`, ids)
+    const {data} = await axios.post(`/api/orders/${ids.orderId}`, ids)
     // dispatch(createOrder(data));
   } catch (err) {
     console.error(err)
