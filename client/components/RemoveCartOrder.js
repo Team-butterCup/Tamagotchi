@@ -12,6 +12,7 @@ export const addCartOrder = props => {
   return (
     <div>
       <Button
+        style={{backgroundColor: 'red'}}
         onClick={() => {
           axios.delete('/api/orders', {
             orderId,
@@ -19,7 +20,7 @@ export const addCartOrder = props => {
           })
         }}
       >
-        Remove From Cart
+        X
       </Button>
     </div>
   )

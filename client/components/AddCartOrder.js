@@ -12,6 +12,7 @@ export const addCartOrder = props => {
   return (
     <div>
       <Button
+        style={{backgroundColor: 'green'}}
         onClick={() =>
           props.createTamagotchiOrder({
             orderId,
@@ -20,7 +21,7 @@ export const addCartOrder = props => {
           })
         }
       >
-        Add to Cart
+        +
       </Button>
     </div>
   )
