@@ -25,6 +25,10 @@ const removeTamagotchi = () => ({
   type: REMOVE_TAMAGOTCHI
 })
 
+const addTamagotchi = () => ({
+  type: ADD_TAMAGOTCHI
+})
+
 //promisified delay function
 
 function timeout(ms) {
@@ -72,6 +76,8 @@ export default function(state = defaultTamagotchis, action) {
       return action.tamagotchis
     case REMOVE_TAMAGOTCHI:
       return defaultTamagotchis
+    case ADD_TAMAGOTCHI:
+      return defailtTamagotchis
     default:
       return state
   }
