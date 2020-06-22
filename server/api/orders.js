@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const axios = require('axios')
 const Sequelize = require('sequelize')
 const {User, Tamagotchi, Order, TamagotchiOrder} = require('../db/models')
 module.exports = router
@@ -16,7 +15,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:orderId', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.orderId, {
-      include: [User, Tamagotchi]
+      include: [User, Tamagotchi, TamagotchiOrder]
     })
     res.json(order)
   } catch (err) {
@@ -31,7 +30,8 @@ router.post('/', async (req, res, next) => {
       where: {
         status: 'cart',
         userId: req.user.id
-      }
+      },
+      include: [Tamagotchi, User]
     })
     res.json(order)
   } catch (err) {

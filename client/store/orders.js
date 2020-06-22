@@ -58,7 +58,6 @@ export const createOrderThunk = newOrder => async dispatch => {
 export const createTamagotchiOrderThunk = ids => async dispatch => {
   try {
     const {data} = await axios.post(`/api/orders/${ids.orderId}`, ids)
-    console.log(data)
     if (!data[1]) {
       await axios.put('/api/orders', ids)
     }

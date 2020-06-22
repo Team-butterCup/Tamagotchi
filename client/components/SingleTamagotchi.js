@@ -3,7 +3,7 @@ import {fetchSingleTamagotchi} from '../store/singleTamagotchi'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Reviews from './review'
-import {Cutout, Window, WindowContent, Button} from 'react95'
+import {Cutout, Window, WindowContent, Button, Bar} from 'react95'
 import AddCartOrder from './AddCartOrder'
 import RemoveCartOrder from './RemoveCartOrder'
 
@@ -31,11 +31,29 @@ class SingleTamagotchi extends React.Component {
         <h3>description: {description}</h3>
         <h3>price: {price}</h3>
         <h3>quantity: {qty}</h3>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}
+        >
+          <h3 style={{marginRight: '5px'}}>Add one to Cart //</h3>
+          <AddCartOrder tamagotchiId={id} price={price} />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}
+        >
+          <h3 style={{marginRight: '5px'}}>Remove from Cart //</h3>
+          <RemoveCartOrder />
+        </div>
         <div>
           <Reviews tamagotchiId={id} />
         </div>
-        <AddCartOrder tamagotchiId={id} price={price} />
-        <RemoveCartOrder />
       </div>
     )
   }
