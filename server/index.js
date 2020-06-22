@@ -10,6 +10,10 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const stripe = require('stripe')(
+  'sk_test_51Gwd5vEty4K5l7QHsE030kU6L3kxpLxqsGN8yivuaLUhXS61Iu5aNdERU7NuQUWi9eJtUUNgYaG4oHW5jtS2INu300zRYmdsVm'
+)
+const uuid = require('uuid')
 module.exports = app
 
 // This is a global Mocha hook, used for resource cleanup.
@@ -94,6 +98,39 @@ const createApp = () => {
   })
 }
 
+app.post('/payment', (req, res) => {
+  const {product, token} = req.body
+  console.log('PRODUCT', product)
+  console.log('PRICE ', product.price)
+  const idempontencyKey = uuid()
+
+  return stripe.customers
+    .create({
+      email: token.email,
+      source: token.id
+    })
+    .then(customer => {
+      stripe.charges
+        .create(
+          {
+            amount: product.price * 100,
+            currency: 'usd',
+            customer: customer.id,
+            receipt_email: token.email,
+            description: product.name,
+            shipping: token.card.name,
+            address: {
+              country: token.card.address_country
+            }
+          },
+          {
+            idempontencyKey
+          }
+        )
+        .then(result => res.status(200).json(result))
+        .catch(err => console.log(err))
+    })
+})
 const startListening = () => {
   // start listening (and create a 'server' object representing our server)
   const server = app.listen(PORT, () =>
