@@ -77,7 +77,7 @@ export default function(state = defaultTamagotchis, action) {
     case REMOVE_TAMAGOTCHI:
       return defaultTamagotchis
     case ADD_TAMAGOTCHI:
-      return defailtTamagotchis
+      return defaultTamagotchis
     default:
       return state
   }
