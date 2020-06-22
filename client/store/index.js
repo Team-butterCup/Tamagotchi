@@ -8,9 +8,10 @@ import reviews from './reviews'
 import tamagotchis from './tamagotchis'
 import singleTamagotchi from './singleTamagotchi'
 import reviewDraft from './reviewDraft'
-
+import users from './users'
 const reducer = combineReducers({
   user,
+  users,
   ordersAndCart,
   reviews,
   tamagotchis,
@@ -24,6 +25,7 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './user'
+export * from './users'
 export * from './orders'
 export * from './reviews'
 export * from './tamagotchis'

@@ -4,7 +4,6 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const SET_USERS = 'SET_USERS'
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 
@@ -18,21 +17,10 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
-const setUsers = users => ({type: SET_USERS, users})
 
 /**
  * THUNK CREATORS
  */
-
-export const fetchUsers = () => async dispatch => {
-  try {
-    //await timeout(3000)
-    const {data} = await axios.get('/api/users')
-    dispatch(setUsers(data))
-  } catch (error) {
-    console.error(err)
-  }
-}
 
 export const me = () => async dispatch => {
   try {
@@ -74,8 +62,6 @@ export const logout = () => async dispatch => {
  */
 export default function(state = defaultUser, action) {
   switch (action.type) {
-    case SET_USERS:
-      return action.users
     case GET_USER:
       return action.user
     case REMOVE_USER:

@@ -1,21 +1,25 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {NavLink, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 import RemoveUser from './RemoveUser'
-import {Hourglass, Button} from 'react95'
+// import { Hourglass, Button } from 'react95';
 
 //MAKE THIS ADMIN TRUE
 
 const AllUsers = props => {
-  const robots = props.users
+  const users = props.users
+  console.log(users)
   return (
     <div>
+      <div>
+        <h1>Browse All Users</h1>
+      </div>
       {users.map(user => (
         <div key={user.id} className="user row">
-          <Link to={`/users/${user.id}`}>
+          <NavLink to={`/users/${user.id}`}>
             <p>{user.email}</p>
-          </Link>
+          </NavLink>
           <RemoveUser user={user} />
         </div>
       ))}

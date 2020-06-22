@@ -8,6 +8,7 @@ import {
   UserHome,
   AllTamagotchis,
   SingleTamagotchi,
+  AllUsers,
   CartOrder
 } from './components'
 import {
@@ -15,7 +16,8 @@ import {
   fetchTamagotchis,
   fetchReviews,
   createOrderThunk,
-  fetchOrders
+  fetchOrders,
+  fetchUsers
 } from './store'
 
 /**
@@ -26,6 +28,7 @@ class Routes extends Component {
     await this.props.loadInitialData()
     await this.props.setTamagotchis()
     await this.props.loadReviews()
+    await this.props.setUsers()
 
     if (this.props.isLoggedIn) {
       await this.props.createOrder({userId: this.props.user.id})
@@ -38,7 +41,8 @@ class Routes extends Component {
 
     return (
       <Switch>
-        {/* Routes placed here are available to all visitors */}
+        {/* Routes placed here are available to all visitors !!DELETE USERS PATH ONCE DONE TESTING!!*/}
+        <Route path="/users" component={AllUsers} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/tamagotchis/:tamagotchiId" component={SingleTamagotchi} />
@@ -77,6 +81,7 @@ const mapDispatch = dispatch => {
       dispatch(me())
     },
     setTamagotchis: () => dispatch(fetchTamagotchis()),
+    setUsers: () => dispatch(fetchUsers()),
     loadReviews: () => dispatch(fetchReviews()),
     createOrder: order => dispatch(createOrderThunk(order)),
     setOrders: () => dispatch(fetchOrders())
