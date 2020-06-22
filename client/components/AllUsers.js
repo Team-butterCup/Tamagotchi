@@ -1,14 +1,14 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {getUser} from '../store/user'
+
 import RemoveUser from './RemoveUser'
+import {Hourglass, Button} from 'react95'
 
 //MAKE THIS ADMIN TRUE
 
 const AllUsers = props => {
   const robots = props.users
-
   return (
     <div>
       {users.map(user => (
@@ -23,16 +23,10 @@ const AllUsers = props => {
   )
 }
 
-const mapDispatch = dispatch => {
+const mapState = reduxState => {
   return {
-    loadUsers: () => dispatch(getUser())
+    users: reduxState.users
   }
 }
 
-const mapState = state => {
-  return {
-    users: state.users
-  }
-}
-
-export default connect(mapState, mapDispatch)(AllUsers)
+export default withRouter(connect(mapState)(AllUsers))

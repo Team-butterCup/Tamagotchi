@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, Order} = require('../db/models')
+
 const {isAdmin} = require('../middleware')
 module.exports = router
 
@@ -17,7 +18,7 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 })
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', isAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId, {
       include: [Order]
@@ -32,23 +33,24 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', isAdmin, (req, res, next) => {
   User.create(req.body)
     .then(user => res.json(user))
     .catch(next)
 })
 
-router.delete('/:userId', (req, res, next) => {
-  User.destroy({
-    where: {
-      id: req.params.userId
-    }
-  })
-    .then(() => res.status(204).end())
-    .catch(next)
+router.delete('/:userId', isAdmin, async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId)
+    if (!user) return res.sendStatus(404)
+    await user.destroy()
+    res.sendStatus(204)
+  } catch (err) {
+    next(err)
+  }
 })
 
-router.put('/:userId', async (request, response, next) => {
+router.put('/:userId', isAdmin, async (request, response, next) => {
   try {
     const singleUser = await User.findByPk(request.params.userId)
     await singleUser.update(request.body)
