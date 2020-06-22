@@ -21,7 +21,7 @@ export const cartOrder = props => {
 
 const mapStateToProps = reduxState => {
   return {
-    orders: reduxState.orders,
+    orders: reduxState.ordersAndCart.orders,
     user: reduxState.user
   }
 }

@@ -27,13 +27,10 @@ class Routes extends Component {
     await this.props.setTamagotchis()
     await this.props.loadReviews()
 
-
     if (this.props.isLoggedIn) {
-      console.log('Hey, we made it!')
       await this.props.createOrder({userId: this.props.user.id})
     }
     this.props.setOrders()
-
   }
 
   render() {
@@ -71,7 +68,6 @@ const mapState = state => {
 
     user: state.user,
     userId: state.user.id
-
   }
 }
 

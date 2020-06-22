@@ -52,12 +52,12 @@ async function seed() {
     Order.create({}),
     Order.create({})
   ])
-  await TamagotchiOrder.bulkCreate([
-    {
-      orderId: 1,
-      tamagotchiId: 1
-    }
-  ])
+  // await TamagotchiOrder.bulkCreate([
+  //   {
+  //     orderId: 1,
+  //     tamagotchiId: 1
+  //   }
+  // ])
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
   //console.log(Object.keys(users[0].__proto__))

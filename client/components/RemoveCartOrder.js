@@ -1,24 +1,42 @@
 import React from 'react'
+import axios from 'axios'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {removeOrder} from '../store/orders'
+import {Link, withRouter} from 'react-router-dom'
+import {createTamagotchiOrderThunk} from '../store'
 
 import {Button} from 'react95'
 
-export const RemoveCartOrder = props => {
-  const order = props.order
+export const addCartOrder = props => {
+  const orderId = props.cart.id
+  const tamagotchiId = props.tamagotchiId
   return (
     <div>
-      {' '}
-      <Button>Remove from Cart</Button>
+      <Button
+        onClick={() => {
+          axios.delete('/api/orders', {
+            orderId,
+            tamagotchiId
+          })
+        }}
+      >
+        Remove From Cart
+      </Button>
     </div>
   )
 }
 
 const mapStateToProps = reduxState => {
   return {
-    order: reduxState.order
+    cart: reduxState.ordersAndCart.cart
   }
 }
 
-export default connect(mapStateToProps)(RemoveCartOrder)
+const mapDispatchToProps = dispatch => {
+  return {
+    createTamagotchiOrder: ids => dispatch(createTamagotchiOrderThunk(ids))
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(addCartOrder)
+)

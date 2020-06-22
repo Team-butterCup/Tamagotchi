@@ -19,7 +19,7 @@ const AllTamagotchis = props => {
       {/* <div>
         <AddTamagotchiForm />
       </div> */}
-      {tamagotchis !== undefined && tamagotchis.length ? (
+      {tamagotchis !== undefined && tamagotchis.length && props.cart ? (
         tamagotchis.map(tamagotchi => (
           <div key={tamagotchi.id}>
             <NavLink to={`/tamagotchis/${tamagotchi.id}`}>
@@ -30,7 +30,10 @@ const AllTamagotchis = props => {
                 <div>{tamagotchi.name}</div>
               </div>
             </NavLink>
-            <AddCartOrder />
+            <AddCartOrder
+              tamagotchiId={tamagotchi.id}
+              price={tamagotchi.price}
+            />
             <RemoveCartOrder />
             {/* <DeleteButton TamagotchiId={Tamagotchi.id} name={Tamagotchi.name} /> */}
           </div>
@@ -47,7 +50,8 @@ const AllTamagotchis = props => {
 
 const mapState = reduxState => {
   return {
-    tamagotchis: reduxState.tamagotchis
+    tamagotchis: reduxState.tamagotchis,
+    cart: reduxState.ordersAndCart
   }
 }
 
