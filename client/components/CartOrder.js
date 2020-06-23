@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {NavLink, withProvider} from 'react-router-dom'
 import {Hourglass, Cutout, Bar, Button} from 'react95'
 import RemoveCartOrder from './RemoveCartOrder'
+import AddCartOrder from './AddCartOrder'
 
 import {createOrderThunk, fetchOrders} from '../store'
 
@@ -21,9 +22,9 @@ export const cartOrder = props => {
     <div>
       <h1>Cart</h1>
       {cart !== undefined && cart.tamagotchis ? (
-        cart.tamagotchis.map(tamagotchiOrder => (
+        cart.tamagotchis.map(tamagotchi => (
           <div
-            key={`${cart.id},${tamagotchiOrder.id}`}
+            key={`${cart.id},${tamagotchi.id}`}
             style={{
               display: 'flex',
               flexDirection: 'row',
@@ -31,15 +32,22 @@ export const cartOrder = props => {
             }}
           >
             <Cutout>
-              <div>
+              <div style={{display: 'flex', alignItems: 'center'}}>
                 <Bar />
-                {tamagotchiOrder.name}
+                Name: {tamagotchi.name}
                 <Bar />
-                {tamagotchiOrder.price}
+                Adoption Fee: {tamagotchi.price}
                 <Bar />
+                Qty: {tamagotchi.TamagotchiOrder.qty}
+                <Bar />
+                <AddCartOrder />
+                <Bar />
+                <RemoveCartOrder
+                  orderId={cart.id}
+                  tamagotchiId={tamagotchi.id}
+                />
               </div>
             </Cutout>
-            <RemoveCartOrder />
           </div>
         ))
       ) : (

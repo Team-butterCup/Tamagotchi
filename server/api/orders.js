@@ -42,7 +42,6 @@ router.post('/', async (req, res, next) => {
       }
       res.status(200).json(order)
     } else {
-      console.log('WE ARE FIND OR CREATING!')
       order = await Order.findOrCreate({
         where: {
           status: 'cart',
@@ -96,6 +95,7 @@ router.put('/', async (req, res, next) => {
 
 router.delete('/', async (req, res, next) => {
   try {
+    console.log(req.body)
     await TamagotchiOrder.destroy({
       where: req.body
     })

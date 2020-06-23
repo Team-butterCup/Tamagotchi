@@ -6,8 +6,8 @@ import {createTamagotchiOrderThunk} from '../store'
 
 import {Button} from 'react95'
 
-export const addCartOrder = props => {
-  const orderId = props.cart.id
+export const RemoveCartOrder = props => {
+  const orderId = props.orderId
   const tamagotchiId = props.tamagotchiId
   return (
     <div>
@@ -15,8 +15,8 @@ export const addCartOrder = props => {
         style={{backgroundColor: 'red'}}
         onClick={() => {
           axios.delete('/api/orders', {
-            orderId,
-            tamagotchiId
+            headers: {},
+            data: {orderId, tamagotchiId}
           })
         }}
       >
@@ -28,7 +28,7 @@ export const addCartOrder = props => {
 
 const mapStateToProps = reduxState => {
   return {
-    cart: reduxState.ordersAndCart.cart
+    //cart: reduxState.ordersAndCart.cart
   }
 }
 
@@ -39,5 +39,5 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(addCartOrder)
+  connect(mapStateToProps, mapDispatchToProps)(RemoveCartOrder)
 )
