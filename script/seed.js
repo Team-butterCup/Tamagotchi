@@ -20,15 +20,15 @@ async function seed() {
   ])
 
   const tamagotchis = await Promise.all([
-    Tamagotchi.create({id: 1, name: 'Didi', age: 'preteen', qty: '3'}),
-    Tamagotchi.create({id: 2, name: 'Xavi', age: 'senior', qty: '2'}),
+    Tamagotchi.create({id: 1, name: 'Didi', age: 'preteen', qty: '30'}),
+    Tamagotchi.create({id: 2, name: 'Xavi', age: 'senior', qty: '40'}),
     Tamagotchi.create({id: 3, name: 'Malani', age: 'senior', qty: '100'}),
     Tamagotchi.create({id: 4, name: 'Xiaobao', age: 'adult', qty: '20'}),
     Tamagotchi.create({
       id: 5,
       name: 'Godzilla',
       age: 'boomer',
-      qty: '1',
+      qty: '5',
       price: '1000000000'
     })
   ])

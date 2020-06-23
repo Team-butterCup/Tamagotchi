@@ -8,7 +8,8 @@ import {
   UserHome,
   AllTamagotchis,
   SingleTamagotchi,
-  CartOrder
+  CartOrder,
+  CheckoutDraft
 } from './components'
 import {
   me,
@@ -44,6 +45,7 @@ class Routes extends Component {
         <Route path="/tamagotchis/:tamagotchiId" component={SingleTamagotchi} />
         <Route path="/tamagotchis" component={AllTamagotchis} />
         <Route path="/orders" component={CartOrder} />
+        <Route path="/checkout" component={CheckoutDraft} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

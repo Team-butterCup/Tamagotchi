@@ -75,6 +75,16 @@ export const removeOrderThunk = orderId => async dispatch => {
     console.error(err)
   }
 }
+export const updateOrderThunk = () => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.patch('/api/orders/checkout', {})
+      dispatch(getOrder(data))
+    } catch (err) {
+      console.log('Error updating order', err)
+    }
+  }
+}
 
 /**
  * REDUCER
@@ -84,7 +94,7 @@ export default function orderReducer(state = ordersAndCart, action) {
     case GET_ORDERS:
       return {...state, orders: action.orders}
     case GET_ORDER:
-      return action.order
+      return {...state, order: action.order}
     case REMOVE_ORDER:
       return state.filter(order => order.id !== action.orderId)
     case CREATE_ORDER:
