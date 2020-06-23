@@ -19,7 +19,7 @@ const AllUsers = props => {
           <NavLink to={`/users/${user.id}`}>
             <p>{user.email}</p>
           </NavLink>
-          <RemoveUser user={user} />
+          <RemoveUser userId={user.id} />
         </div>
       ))}
     </div>

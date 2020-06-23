@@ -5,6 +5,8 @@ import {fetchSingleUser} from '../store/singleUser'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 
+import RemoveUser from './RemoveUser'
+
 class SingleUser extends React.Component {
   componentDidMount() {
     const id = Number(this.props.match.params.userId)
@@ -19,6 +21,7 @@ class SingleUser extends React.Component {
         <h3>Google Id: {googleId}</h3>
         <h3>Admin Status: {`${isAdmin}`}</h3>
         <h3>User ID: {id}</h3>
+        <RemoveUser userId={user.id} />
       </div>
     )
   }
