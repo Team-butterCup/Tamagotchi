@@ -41,9 +41,10 @@ router.post('/', isAdmin, (req, res, next) => {
 
 router.delete('/:userId', isAdmin, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId)
-    if (!user) return res.sendStatus(404)
-    await user.destroy()
+    console.log('Req.Params:', req.params)
+    const singleUser = await User.findByPk(req.params.userId)
+    if (!singleUser) return res.sendStatus(404)
+    await singleUser.destroy()
     res.sendStatus(204)
   } catch (err) {
     next(err)
