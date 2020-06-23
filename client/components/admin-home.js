@@ -15,10 +15,9 @@ export const AdminHome = props => {
     <div>
       <h3>Welcome, Admin {email}</h3>
       <h4>
-        <Link to="/user">View and Remove Users</Link>
+        <Link to="/users">View and Remove Users</Link>
       </h4>
       <h4>
-        {' '}
         <Link to="/tamagotchis">Edit Tamagotchis</Link>
       </h4>
     </div>

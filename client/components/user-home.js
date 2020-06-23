@@ -1,18 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import AdminHome from './admin-home'
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email} = props
-
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
+  const {user} = props
+  if (user.isAdmin) {
+    return (
+      <div>
+        <AdminHome />
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <h3>Welcome, {user.email}</h3>
+      </div>
+    )
+  }
 }
 
 /**
@@ -20,7 +28,7 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    user: state.user
   }
 }
 

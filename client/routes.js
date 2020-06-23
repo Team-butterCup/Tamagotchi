@@ -6,6 +6,7 @@ import {
   Login,
   Signup,
   UserHome,
+  AdminHome,
   AllTamagotchis,
   SingleTamagotchi,
   AllUsers,
@@ -37,17 +38,23 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isAdmin} = this.props
 
     return (
       <Switch>
-        {/* Routes placed here are available to all visitors !!DELETE USERS PATH ONCE DONE TESTING!!*/}
-        <Route path="/users" component={AllUsers} />
+        {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/tamagotchis/:tamagotchiId" component={SingleTamagotchi} />
         <Route path="/tamagotchis" component={AllTamagotchis} />
         <Route path="/orders" component={CartOrder} />
+        {isAdmin && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/home" component={UserHome} />
+            <Route path="/users" component={AllUsers} />
+          </Switch>
+        )}
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -69,6 +76,7 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.isAdmin,
 
     user: state.user,
     userId: state.user.id
