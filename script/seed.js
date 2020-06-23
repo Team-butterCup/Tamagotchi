@@ -19,6 +19,7 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'}),
     User.create({email: 'admin@email.com', password: '123', isAdmin: true})
   ])
+
   for (let i = 0; i < 100; i++) {
     await Tamagotchi.create({
       name: faker.name.firstName() + 'atchi',
@@ -53,8 +54,6 @@ async function seed() {
         'senior',
         'boomer'
       ])
-    })
-  }
 
   // const tamagotchis = await Promise.all([
   //   Tamagotchi.create({ id: 1, name: 'Didi', age: 'preteen', qty: '3' }),

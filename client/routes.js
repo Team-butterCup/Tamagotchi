@@ -8,14 +8,19 @@ import {
   UserHome,
   AllTamagotchis,
   SingleTamagotchi,
-  CartOrder
+  CartOrder,
+  CheckoutDraft,
+  CheckoutComplete,
+  AllUsers,
+  SingleUser
 } from './components'
 import {
   me,
   fetchTamagotchis,
   fetchReviews,
   createOrderThunk,
-  fetchOrders
+  fetchOrders,
+  fetchUsers
 } from './store'
 
 /**
@@ -26,15 +31,18 @@ class Routes extends Component {
     await this.props.loadInitialData()
     await this.props.setTamagotchis()
     await this.props.loadReviews()
+    await this.props.setUsers()
 
     if (this.props.isLoggedIn) {
       await this.props.createOrder({userId: this.props.user.id})
+    } else {
+      await this.props.createOrder({userId: null})
     }
-    this.props.setOrders()
+    await this.props.setOrders()
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isAdmin} = this.props
 
     return (
       <Switch>
@@ -44,6 +52,18 @@ class Routes extends Component {
         <Route path="/tamagotchis/:tamagotchiId" component={SingleTamagotchi} />
         <Route path="/tamagotchis" component={AllTamagotchis} />
         <Route path="/orders" component={CartOrder} />
+        <Route path="/checkout" component={CheckoutDraft} />
+        <Route path="/checkout_complete" component={CheckoutComplete} />
+
+        {isAdmin && (
+          <Switch>
+            {/* Routes placed here are only available after logging in as an Admin */}
+            <Route path="/home" component={UserHome} />
+            <Route path="/users/:userId" component={SingleUser} />
+            <Route path="/users" component={AllUsers} />
+          </Switch>
+        )}
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -65,6 +85,7 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.isAdmin,
 
     user: state.user,
     userId: state.user.id
@@ -77,6 +98,7 @@ const mapDispatch = dispatch => {
       dispatch(me())
     },
     setTamagotchis: () => dispatch(fetchTamagotchis()),
+    setUsers: () => dispatch(fetchUsers()),
     loadReviews: () => dispatch(fetchReviews()),
     createOrder: order => dispatch(createOrderThunk(order)),
     setOrders: () => dispatch(fetchOrders())

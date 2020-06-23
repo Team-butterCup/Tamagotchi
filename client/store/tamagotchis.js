@@ -25,6 +25,10 @@ const removeTamagotchi = () => ({
   type: REMOVE_TAMAGOTCHI
 })
 
+const addTamagotchi = () => ({
+  type: ADD_TAMAGOTCHI
+})
+
 //promisified delay function
 
 function timeout(ms) {
@@ -44,25 +48,6 @@ export const fetchTamagotchis = () => async dispatch => {
     console.log('THERE WAS AN ERROR FOOL: ', error)
   }
 }
-// export const me = () => async dispatch => {
-//   try {
-//     const res = await axios.get('/auth/me')
-//     dispatch(getTamagotchi(res.data || defaultTamagotchi))
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
-
-// export const logout = () => async dispatch => {
-//   try {
-//     await axios.post('/auth/logout')
-//     dispatch(removeTamagotchi())
-//     history.push('/login')
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
-
 /**
  * REDUCER
  */
@@ -71,6 +56,8 @@ export default function(state = defaultTamagotchis, action) {
     case SET_TAMAGOTCHIS:
       return action.tamagotchis
     case REMOVE_TAMAGOTCHI:
+      return defaultTamagotchis
+    case ADD_TAMAGOTCHI:
       return defaultTamagotchis
     default:
       return state

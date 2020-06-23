@@ -8,6 +8,7 @@ const GET_ORDERS = 'GET_ORDERS'
 const REMOVE_ORDER = 'REMOVE_ORDER'
 const CREATE_ORDER = 'CREATE_ORDER'
 const GET_ORDER = 'GET_ORDER'
+const RESET_CART = 'RESET_CART'
 
 /**
  * INITIAL STATE
@@ -20,6 +21,7 @@ const ordersAndCart = {
 /**
  * ACTION CREATORS
  */
+const resetCart = (reset = {}) => ({type: RESET_CART, reset})
 const getOrders = orders => ({type: GET_ORDERS, orders})
 const removeOrder = orderId => ({type: REMOVE_ORDER, orderId})
 const createOrder = order => ({type: CREATE_ORDER, order})
@@ -28,6 +30,13 @@ const getOrder = order => ({type: GET_ORDER, order})
 /**
  * THUNK CREATORS
  */
+export const deleteCart = () => dispatch => {
+  try {
+    dispatch(resetCart())
+  } catch (error) {
+    console.error(error)
+  }
+}
 export const fetchOrders = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/orders')
@@ -49,7 +58,8 @@ export const fetchSingleOrder = orderId => async dispatch => {
 export const createOrderThunk = newOrder => async dispatch => {
   try {
     const {data} = await axios.post('/api/orders', newOrder)
-    dispatch(createOrder(data[0]))
+    if (Array.isArray(data)) dispatch(createOrder(data[0]))
+    else dispatch(createOrder(data))
   } catch (err) {
     console.error(err)
   }
@@ -75,6 +85,16 @@ export const removeOrderThunk = orderId => async dispatch => {
     console.error(err)
   }
 }
+export const updateOrderThunk = () => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.patch('/api/orders/checkout', {})
+      dispatch(getOrder(data))
+    } catch (err) {
+      console.log('Error updating order', err)
+    }
+  }
+}
 
 /**
  * REDUCER
@@ -84,7 +104,7 @@ export default function orderReducer(state = ordersAndCart, action) {
     case GET_ORDERS:
       return {...state, orders: action.orders}
     case GET_ORDER:
-      return action.order
+      return {...state, order: action.order}
     case REMOVE_ORDER:
       return state.filter(order => order.id !== action.orderId)
     case CREATE_ORDER:
@@ -92,6 +112,11 @@ export default function orderReducer(state = ordersAndCart, action) {
         ...state,
         orders: [...state.orders, action.order],
         cart: action.order
+      }
+    case RESET_CART:
+      return {
+        ...state,
+        cart: action.reset
       }
     default:
       return state

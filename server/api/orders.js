@@ -26,14 +26,33 @@ router.get('/:orderId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   //console.log('req.body', req.body)
   try {
-    const order = await Order.findOrCreate({
-      where: {
-        status: 'cart',
-        userId: req.user.id
-      },
-      include: [Tamagotchi, User]
-    })
-    res.json(order)
+    let order
+    if (!req.user) {
+      const session = req.session
+      if (!session.cartId) {
+        order = await Order.create(req.body)
+        session.cartId = order.id
+        order = await Order.findByPk(session.cartId, {
+          include: [Tamagotchi, User]
+        })
+      } else {
+        order = await Order.findByPk(session.cartId, {
+          include: [Tamagotchi, User]
+        })
+      }
+      res.status(200).json(order)
+    } else {
+      order = await Order.findOrCreate({
+        where: {
+          status: 'cart',
+          userId: req.user.id
+        }
+      })
+      order = await Order.findByPk(order[0].id, {
+        include: [Tamagotchi, User]
+      })
+      res.json(order)
+    }
   } catch (err) {
     next(err)
   }
@@ -76,9 +95,38 @@ router.put('/', async (req, res, next) => {
 
 router.delete('/', async (req, res, next) => {
   try {
+    console.log(req.body)
     await TamagotchiOrder.destroy({
       where: req.body
     })
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.patch('/checkout', async (req, res, next) => {
+  try {
+    // const { updatedFields } = req.body;
+
+    //first: how many instances of order; second: what you returned
+    const [, userOrder] = await Order.update(
+      {status: 'complete'},
+      {
+        where: {userId: req.user.id, status: 'cart'},
+        returning: true,
+        plain: true
+      }
+    )
+    console.log('userOrder', userOrder)
+    const orderItems = await TamagotchiOrder.findAll({
+      where: {orderId: userOrder.id}
+    })
+    orderItems.forEach(async orderItem => {
+      const tamagotchi = await Tamagotchi.findByPk(orderItem.tamagotchiId)
+      await tamagotchi.update({qty: tamagotchi.qty - orderItem.qty})
+    })
+    const newOrder = await Order.create({userId: req.user.id, status: 'cart'})
+    res.json(newOrder)
   } catch (err) {
     next(err)
   }
