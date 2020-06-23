@@ -9,7 +9,8 @@ import {
   AllTamagotchis,
   SingleTamagotchi,
   CartOrder,
-  CheckoutDraft
+  CheckoutDraft,
+  CheckoutComplete
 } from './components'
 import {
   me,
@@ -46,6 +47,7 @@ class Routes extends Component {
         <Route path="/tamagotchis" component={AllTamagotchis} />
         <Route path="/orders" component={CartOrder} />
         <Route path="/checkout" component={CheckoutDraft} />
+        <Route path="/checkout_complete" component={CheckoutComplete} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

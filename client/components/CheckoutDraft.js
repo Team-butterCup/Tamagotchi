@@ -2,6 +2,7 @@ import React from 'react'
 import {Button, Hourglass} from 'react95'
 import {connect} from 'react-redux'
 import {updateOrderThunk} from '../store/orders'
+import {NavLink} from 'react-router-dom'
 
 class CheckoutDraft extends React.Component {
   render() {
@@ -116,7 +117,11 @@ class CheckoutDraft extends React.Component {
               ></input>
             </form>
           </div>
-          <Button onClick={() => this.props.updatedOrder()}>Place Order</Button>
+          <NavLink to="/checkout_complete">
+            <Button onClick={() => this.props.updatedOrder()}>
+              Place Order
+            </Button>
+          </NavLink>
         </div>
       </div>
     )
