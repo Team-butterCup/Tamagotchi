@@ -17,7 +17,7 @@ class SingleUser extends React.Component {
         <h2>Email: {email}</h2>
         <h3>salt: {salt}</h3>
         <h3>Google Id: {googleId}</h3>
-        <h3>Admin Status: {isAdmin}</h3>
+        <h3>Admin Status: {`${isAdmin}`}</h3>
         <h3>User ID: {id}</h3>
       </div>
     )
