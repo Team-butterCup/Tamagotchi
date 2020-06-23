@@ -3,7 +3,6 @@ import {NavLink, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 import RemoveUser from './RemoveUser'
-// import { Hourglass, Button } from 'react95';
 
 //MAKE THIS ADMIN TRUE
 

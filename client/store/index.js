@@ -7,11 +7,13 @@ import ordersAndCart from './orders'
 import reviews from './reviews'
 import tamagotchis from './tamagotchis'
 import singleTamagotchi from './singleTamagotchi'
+import singleUser from './singleUser'
 import reviewDraft from './reviewDraft'
 import users from './users'
 const reducer = combineReducers({
   user,
   users,
+  singleUser,
   ordersAndCart,
   reviews,
   tamagotchis,
@@ -31,3 +33,4 @@ export * from './reviews'
 export * from './tamagotchis'
 export * from './singleTamagotchi'
 export * from './reviewDraft'
+export * from './singleUser'

@@ -6,10 +6,10 @@ import {
   Login,
   Signup,
   UserHome,
-  AdminHome,
   AllTamagotchis,
   SingleTamagotchi,
   AllUsers,
+  SingleUser,
   CartOrder
 } from './components'
 import {
@@ -50,9 +50,10 @@ class Routes extends Component {
         <Route path="/orders" component={CartOrder} />
         {isAdmin && (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
+            {/* Routes placed here are only available after logging in as an Admin */}
             <Route path="/home" component={UserHome} />
             <Route path="/users" component={AllUsers} />
+            <Route path="/users/:userId" component={SingleUser} />
           </Switch>
         )}
         {isLoggedIn && (

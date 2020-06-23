@@ -48,25 +48,6 @@ export const fetchTamagotchis = () => async dispatch => {
     console.log('THERE WAS AN ERROR FOOL: ', error)
   }
 }
-// export const me = () => async dispatch => {
-//   try {
-//     const res = await axios.get('/auth/me')
-//     dispatch(getTamagotchi(res.data || defaultTamagotchi))
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
-
-// export const logout = () => async dispatch => {
-//   try {
-//     await axios.post('/auth/logout')
-//     dispatch(removeTamagotchi())
-//     history.push('/login')
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
-
 /**
  * REDUCER
  */
