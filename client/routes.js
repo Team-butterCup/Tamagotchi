@@ -33,8 +33,10 @@ class Routes extends Component {
 
     if (this.props.isLoggedIn) {
       await this.props.createOrder({userId: this.props.user.id})
+    } else {
+      await this.props.createOrder({userId: null})
     }
-    this.props.setOrders()
+    await this.props.setOrders()
   }
 
   render() {
