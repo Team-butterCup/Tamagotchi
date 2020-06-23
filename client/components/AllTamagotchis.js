@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {NavLink, withRouter} from 'react-router-dom'
 
@@ -11,6 +11,7 @@ import {Hourglass, Button} from 'react95'
 
 const AllTamagotchis = props => {
   const tamagotchis = props.tamagotchis
+
   return (
     <div>
       <div>

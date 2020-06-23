@@ -26,14 +26,34 @@ router.get('/:orderId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   //console.log('req.body', req.body)
   try {
-    const order = await Order.findOrCreate({
-      where: {
-        status: 'cart',
-        userId: req.user.id
-      },
-      include: [Tamagotchi, User]
-    })
-    res.json(order)
+    let order
+    if (!req.user) {
+      const session = req.session
+      if (!session.cartId) {
+        order = await Order.create(req.body)
+        session.cartId = order.id
+        order = await Order.findByPk(session.cartId, {
+          include: [Tamagotchi, User]
+        })
+      } else {
+        order = await Order.findByPk(session.cartId, {
+          include: [Tamagotchi, User]
+        })
+      }
+      res.status(200).json(order)
+    } else {
+      console.log('WE ARE FIND OR CREATING!')
+      order = await Order.findOrCreate({
+        where: {
+          status: 'cart',
+          userId: req.user.id
+        }
+      })
+      order = await Order.findByPk(order[0].id, {
+        include: [Tamagotchi, User]
+      })
+      res.json(order)
+    }
   } catch (err) {
     next(err)
   }
