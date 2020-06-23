@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import {Link, withProvider} from 'react-router-dom'
-import {Hourglass, Cutout, Bar} from 'react95'
+import {NavLink, withProvider} from 'react-router-dom'
+import {Hourglass, Cutout, Bar, Button} from 'react95'
 import RemoveCartOrder from './RemoveCartOrder'
 
 import {createOrderThunk, fetchOrders} from '../store'
@@ -17,8 +17,6 @@ export const cartOrder = props => {
     idk()
   }, [])
 
-  // const tamagotchiOrders = cart.getTamagotchis()
-  // console.log('tamagotchiOrders', tamagotchiOrders)
   return (
     <div>
       <h1>Cart</h1>
@@ -49,6 +47,11 @@ export const cartOrder = props => {
           <Hourglass size={32} />
         </div>
       )}
+      <div>
+        <NavLink to="/checkout">
+          <Button>Proceed to Checkout</Button>
+        </NavLink>
+      </div>
     </div>
   )
 }

@@ -103,3 +103,31 @@ router.delete('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.patch('/checkout', async (req, res, next) => {
+  try {
+    // const { updatedFields } = req.body;
+
+    //first: how many instances of order; second: what you returned
+    const [, userOrder] = await Order.update(
+      {status: 'complete'},
+      {
+        where: {userId: req.user.id, status: 'cart'},
+        returning: true,
+        plain: true
+      }
+    )
+    console.log('userOrder', userOrder)
+    const orderItems = await TamagotchiOrder.findAll({
+      where: {orderId: userOrder.id}
+    })
+    orderItems.forEach(async orderItem => {
+      const tamagotchi = await Tamagotchi.findByPk(orderItem.tamagotchiId)
+      await tamagotchi.update({qty: tamagotchi.qty - orderItem.qty})
+    })
+    const newOrder = await Order.create({userId: req.user.id, status: 'cart'})
+    res.json(newOrder)
+  } catch (err) {
+    next(err)
+  }
+})

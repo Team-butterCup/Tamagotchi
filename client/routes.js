@@ -8,9 +8,11 @@ import {
   UserHome,
   AllTamagotchis,
   SingleTamagotchi,
+  CartOrder,
+  CheckoutDraft,
+  CheckoutComplete,
   AllUsers,
-  SingleUser,
-  CartOrder
+  SingleUser
 } from './components'
 import {
   me,
@@ -50,6 +52,9 @@ class Routes extends Component {
         <Route path="/tamagotchis/:tamagotchiId" component={SingleTamagotchi} />
         <Route path="/tamagotchis" component={AllTamagotchis} />
         <Route path="/orders" component={CartOrder} />
+        <Route path="/checkout" component={CheckoutDraft} />
+        <Route path="/checkout_complete" component={CheckoutComplete} />
+
         {isAdmin && (
           <Switch>
             {/* Routes placed here are only available after logging in as an Admin */}
@@ -58,6 +63,7 @@ class Routes extends Component {
             <Route path="/users" component={AllUsers} />
           </Switch>
         )}
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
