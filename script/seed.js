@@ -54,6 +54,8 @@ async function seed() {
         'senior',
         'boomer'
       ])
+    })
+  }
 
   // const tamagotchis = await Promise.all([
   //   Tamagotchi.create({ id: 1, name: 'Didi', age: 'preteen', qty: '3' }),
