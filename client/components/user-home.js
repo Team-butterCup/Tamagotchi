@@ -2,11 +2,13 @@ import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {createOrderThunk, fetchOrders} from '../store'
+import AdminHome from './admin-home'
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
+
   const {email} = props
   useEffect(() => {
     async function idk() {
@@ -15,12 +17,22 @@ export const UserHome = props => {
     }
     idk()
   }, [])
+  
+  const {user} = props
+  if (user.isAdmin) {
+    return (
+      <div>
+        <AdminHome />
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <h3>Welcome, {user.email}</h3>
+      </div>
+    )
+  }
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
 }
 
 /**
@@ -28,6 +40,7 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
+    user: state.user,
     email: state.user.email,
     id: state.user.id,
     ordersAndCart: state.ordersAndCart,

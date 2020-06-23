@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {auth, deleteCart} from '../store'
+import {auth, deleteCart, fetchUsers} from '../store'
+
 import {Button} from 'react95'
 
 /**
@@ -65,8 +66,10 @@ const mapDispatch = dispatch => {
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
+
       await dispatch(deleteCart())
       await dispatch(auth(email, password, formName))
+      await dispatch(fetchUsers())
     }
   }
 }
