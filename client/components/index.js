@@ -14,4 +14,4 @@ export {default as CheckoutDraft} from './CheckoutDraft'
 export {default as CheckoutComplete} from './CheckoutComplete'
 export {default as AllUsers} from './AllUsers'
 export {default as SingleUser} from './SingleUser'
-
+export {default as AddTamagotchi} from './AddTamagotchi'

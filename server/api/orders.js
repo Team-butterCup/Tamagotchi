@@ -106,8 +106,6 @@ router.delete('/', async (req, res, next) => {
 
 router.patch('/checkout', async (req, res, next) => {
   try {
-    // const { updatedFields } = req.body;
-
     //first: how many instances of order; second: what you returned
     const [, userOrder] = await Order.update(
       {status: 'complete'},
@@ -117,7 +115,6 @@ router.patch('/checkout', async (req, res, next) => {
         plain: true
       }
     )
-    console.log('userOrder', userOrder)
     const orderItems = await TamagotchiOrder.findAll({
       where: {orderId: userOrder.id}
     })

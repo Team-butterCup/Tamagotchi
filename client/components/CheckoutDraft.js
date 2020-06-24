@@ -34,15 +34,15 @@ class CheckoutDraft extends React.Component {
                   }}
                 >
                   <div>
-                    {tamagotchi.name}: ${tamagotchi.price} qty:{' '}
-                    {tamagotchi.TamagotchiOrder.qty} Adoption Fee:{' '}
+                    {tamagotchi.name} qty: {tamagotchi.TamagotchiOrder.qty}{' '}
+                    Adoption Fee: $
                     {tamagotchi.price * tamagotchi.TamagotchiOrder.qty}
                   </div>
                 </div>
               ))}
               <div>
                 {' '}
-                Total Price: $
+                Total Adoption Fees: $
                 {cart.tamagotchis.reduce((acc, item) => {
                   return (
                     acc +

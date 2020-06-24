@@ -1,7 +1,7 @@
 import React from 'react'
 import {fetchSingleTamagotchi} from '../store/singleTamagotchi'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import {withRouter, NavLink} from 'react-router-dom'
 import Reviews from './review'
 import {Cutout, Window, WindowContent, Button, Bar} from 'react95'
 import AddCartOrder from './AddCartOrder'
@@ -22,6 +22,8 @@ class SingleTamagotchi extends React.Component {
       imageUrl,
       id
     } = this.props.tamagotchi
+    let user = this.props.user
+    console.log('user', user)
 
     return (
       <div>
