@@ -12,7 +12,9 @@ import {
   CheckoutDraft,
   CheckoutComplete,
   AllUsers,
-  SingleUser
+  SingleUser,
+  AddTamagotchi,
+  EditTamagotchiForm
 } from './components'
 import {
   me,
@@ -54,6 +56,8 @@ class Routes extends Component {
         <Route path="/orders" component={CartOrder} />
         <Route path="/checkout" component={CheckoutDraft} />
         <Route path="/checkout_complete" component={CheckoutComplete} />
+        <Route path="/add_tamagotchi" component={AddTamagotchi} />
+        <Route path="/edit_tamagotchi" component={EditTamagotchiForm} />
 
         {isAdmin && (
           <Switch>

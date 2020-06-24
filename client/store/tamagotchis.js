@@ -21,12 +21,14 @@ const setTamagotchis = tamagotchis => ({
   tamagotchis
 })
 
-const removeTamagotchi = () => ({
-  type: REMOVE_TAMAGOTCHI
+const removeTamagotchi = tamagotchiId => ({
+  type: REMOVE_TAMAGOTCHI,
+  tamagotchiId
 })
 
-const addTamagotchi = () => ({
-  type: ADD_TAMAGOTCHI
+const addTamagotchi = newTamagotchi => ({
+  type: ADD_TAMAGOTCHI,
+  newTamagotchi
 })
 
 //promisified delay function
@@ -48,6 +50,32 @@ export const fetchTamagotchis = () => async dispatch => {
     console.log('THERE WAS AN ERROR FOOL: ', error)
   }
 }
+
+export const addTamagotchiThunk = newTamagotchi => {
+  return async dispatch => {
+    try {
+      const {data: addedTamagotchi} = await axios.post(
+        '/api/tamagotchis/',
+        newTamagotchi
+      )
+      dispatch(addTamagotchi(addedTamagotchi))
+    } catch (err) {
+      console.log('Error adding tamagotchi', err)
+    }
+  }
+}
+
+export const deleteTamagotchiThunk = tamagotchiId => {
+  return async dispatch => {
+    try {
+      await axios.delete(`/api/tamagotchis/${tamagotchiId}`)
+      dispatch(removeTamagotchi(tamagotchiId))
+    } catch (err) {
+      console.log('Error deleting tamagotchi', err)
+    }
+  }
+}
+
 /**
  * REDUCER
  */
@@ -56,9 +84,9 @@ export default function(state = defaultTamagotchis, action) {
     case SET_TAMAGOTCHIS:
       return action.tamagotchis
     case REMOVE_TAMAGOTCHI:
-      return defaultTamagotchis
+      return state.filter(tamagotchi => tamagotchi.id !== action.tamagotchiId)
     case ADD_TAMAGOTCHI:
-      return defaultTamagotchis
+      return [...state, action.newTamagotchi]
     default:
       return state
   }

@@ -1,28 +1,30 @@
 //MAKE THIS ADMIN TRUE
 
 import React from 'react'
-import {addTamagotchiThunk} from '../store/tamagotchis'
+import {editTamagotchiThunk} from '../store/singleTamagotchi'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 // import { Button } from 'react95'
 
-class AddTamagotchi extends React.Component {
+class EditTamagotchiForm extends React.Component {
   constructor() {
     super()
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleSubmit(event) {
     event.preventDefault()
-    const newTamagotchi = {
+    const editedTamagotchi = {
       name: event.target.name.value,
       age: event.target.age.value,
       description: event.target.description.value,
       price: event.target.price.value,
       qty: event.target.qty.value,
-      imageUrl: event.target.imageUrl.value
+      imageUrl: event.target.imageUrl.value,
+      id: this.props.tamagotchiId
     }
 
-    this.props.addTamagotchi({
-      newTamagotchi
+    this.props.editTamagotchi({
+      editedTamagotchi
     })
   }
 
@@ -50,7 +52,7 @@ class AddTamagotchi extends React.Component {
         <label htmlFor="imageUrl">Image Url: </label>
         <input name="imageUrl" type="url" />
         <button type="submit" className="addButton">
-          Add Tamagotchi
+          Save Changes
         </button>
       </form>
     )
@@ -58,7 +60,8 @@ class AddTamagotchi extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  addTamagotchi: newTamagotchi => dispatch(addTamagotchiThunk(newTamagotchi))
+  editTamagotchi: editedTamagotchi =>
+    dispatch(editTamagotchiThunk(editedTamagotchi))
 })
 
-export default connect(null, mapDispatch)(AddTamagotchi)
+export default withRouter(connect(null, mapDispatch)(EditTamagotchiForm))
