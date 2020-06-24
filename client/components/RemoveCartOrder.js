@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
-import {createTamagotchiOrderThunk} from '../store'
+import {fetchSingleOrder} from '../store'
 
 import {Button} from 'react95'
 
@@ -13,11 +13,12 @@ export const RemoveCartOrder = props => {
     <div>
       <Button
         style={{backgroundColor: 'red'}}
-        onClick={() => {
-          axios.delete('/api/orders', {
+        onClick={async () => {
+          await axios.delete('/api/orders', {
             headers: {},
             data: {orderId, tamagotchiId}
           })
+          props.updateCart(orderId)
         }}
       >
         X
@@ -34,7 +35,7 @@ const mapStateToProps = reduxState => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createTamagotchiOrder: ids => dispatch(createTamagotchiOrderThunk(ids))
+    updateCart: orderId => dispatch(fetchSingleOrder(orderId))
   }
 }
 

@@ -8,7 +8,6 @@ import RemoveUser from './RemoveUser'
 
 const AllUsers = props => {
   const users = props.users
-  console.log(users)
   return (
     <div>
       <div>

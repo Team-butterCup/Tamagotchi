@@ -40,7 +40,7 @@ export const cartOrder = props => {
                 <Bar />
                 Qty: {tamagotchi.TamagotchiOrder.qty}
                 <Bar />
-                <AddCartOrder />
+                <AddCartOrder tamagotchiId={tamagotchi.id} />
                 <Bar />
                 <RemoveCartOrder
                   orderId={cart.id}

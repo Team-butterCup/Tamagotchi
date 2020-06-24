@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
-import {createTamagotchiOrderThunk} from '../store'
+import {createTamagotchiOrderThunk, fetchTamagotchis} from '../store'
 
 import {Button} from 'react95'
 
@@ -13,13 +13,13 @@ export const addCartOrder = props => {
     <div>
       <Button
         style={{backgroundColor: 'green'}}
-        onClick={() =>
-          props.createTamagotchiOrder({
+        onClick={async () => {
+          await props.createTamagotchiOrder({
             orderId,
             tamagotchiId,
             purchasePrice
           })
-        }
+        }}
       >
         +
       </Button>

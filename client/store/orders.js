@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../history'
 
 /**
  * ACTION TYPES
@@ -48,8 +47,10 @@ export const fetchOrders = () => async dispatch => {
 
 export const fetchSingleOrder = orderId => async dispatch => {
   try {
+    console.log('we made it')
     const {data} = await axios.get(`/api/orders/${orderId}`)
-    dispatch(getOrder(data))
+    console.log(data)
+    dispatch(createOrder(data))
   } catch (err) {
     console.error(err)
   }
@@ -70,8 +71,13 @@ export const createTamagotchiOrderThunk = ids => async dispatch => {
     const {data} = await axios.post(`/api/orders/${ids.orderId}`, ids)
     if (!data[1]) {
       await axios.put('/api/orders', ids)
+      const newCart = await axios.get(`/api/orders/${ids.orderId}`)
+
+      dispatch(createOrder(newCart.data))
+    } else {
+      const otherNewCart = await axios.get(`/api/orders/${ids.orderId}`)
+      dispatch(createOrder(otherNewCart.data))
     }
-    //dispatch(createOrder(data));
   } catch (err) {
     console.error(err)
   }
