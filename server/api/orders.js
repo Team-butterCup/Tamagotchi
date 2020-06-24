@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:orderId', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.orderId, {
-      include: [User, Tamagotchi, TamagotchiOrder]
+      include: [User, Tamagotchi]
     })
     res.json(order)
   } catch (err) {
@@ -95,10 +95,10 @@ router.put('/', async (req, res, next) => {
 
 router.delete('/', async (req, res, next) => {
   try {
-    console.log(req.body)
     await TamagotchiOrder.destroy({
       where: req.body
     })
+    res.sendStatus(204)
   } catch (err) {
     next(err)
   }

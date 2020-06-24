@@ -31,9 +31,9 @@ class Routes extends Component {
     await this.props.loadInitialData()
     await this.props.setTamagotchis()
     await this.props.loadReviews()
-    await this.props.setUsers()
 
     if (this.props.isLoggedIn) {
+      await this.props.setUsers()
       await this.props.createOrder({userId: this.props.user.id})
     } else {
       await this.props.createOrder({userId: null})
