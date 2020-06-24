@@ -20,6 +20,22 @@ export const fetchSingleTamagotchi = tamagotchiId => {
   }
 }
 
+export const editTamagotchiThunk = editedTamagotchi => {
+  return async dispatch => {
+    try {
+      console.log(editedTamagotchi)
+      const {data} = await axios.put(
+        `/api/tamagotchis/${editedTamagotchi.id}`,
+        editedTamagotchi
+      )
+
+      dispatch(setSingleTamagotchi(data))
+    } catch (err) {
+      console.log('Error updating tamagotchi', err)
+    }
+  }
+}
+
 export default function singleTamagotchiReducer(tamagotchi = {}, action) {
   switch (action.type) {
     case SET_SINGLETAMAGOTCHI: {

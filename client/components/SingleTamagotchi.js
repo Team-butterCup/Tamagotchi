@@ -6,6 +6,7 @@ import Reviews from './review'
 import {Cutout, Window, WindowContent, Button, Bar} from 'react95'
 import AddCartOrder from './AddCartOrder'
 import RemoveCartOrder from './RemoveCartOrder'
+import EditTamagotchiForm from './EditTamagotchiForm'
 
 class SingleTamagotchi extends React.Component {
   componentDidMount() {
@@ -23,10 +24,17 @@ class SingleTamagotchi extends React.Component {
       id
     } = this.props.tamagotchi
     let user = this.props.user
-    console.log('user', user)
 
     return (
       <div>
+        <div>
+          {' '}
+          {!!user.isAdmin && (
+            <NavLink to="/edit_tamagotchi">
+              <Button>Edit Tamagotchi</Button>
+            </NavLink>
+          )}
+        </div>
         <h2>Name: {name}</h2>
         <img src={imageUrl} />
         <h3>age: {age}</h3>
@@ -56,13 +64,17 @@ class SingleTamagotchi extends React.Component {
         <div>
           <Reviews tamagotchiId={id} />
         </div>
+        <div>
+          <EditTamagotchiForm tamagotchiId={id} />
+        </div>
       </div>
     )
   }
 }
 
 const mapState = reduxState => ({
-  tamagotchi: reduxState.singleTamagotchi
+  tamagotchi: reduxState.singleTamagotchi,
+  user: reduxState.user
 })
 
 const mapDispatch = dispatch => ({

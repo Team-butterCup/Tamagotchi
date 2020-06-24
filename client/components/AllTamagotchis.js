@@ -42,12 +42,9 @@ const AllTamagotchis = props => {
             {/* <DeleteButton TamagotchiId={Tamagotchi.id} name={Tamagotchi.name} /> */}
             <div className="deleteButton">
               {!!user.isAdmin && (
-                <button
-                  type="button"
-                  onClick={() => props.deleteTamagotchi(tamagotchi.id)}
-                >
-                  Delete Tamagotchi
-                </button>
+                <Button onClick={() => props.deleteTamagotchi(tamagotchi.id)}>
+                  Delete
+                </Button>
               )}
             </div>
           </div>

@@ -60,3 +60,7 @@ form {
 .addButton {
   margin: 1.5rem;
 }
+
+button {
+  margin: 0.4rem;
+}

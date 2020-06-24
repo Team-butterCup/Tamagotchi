@@ -7,17 +7,7 @@ import {NavLink} from 'react-router-dom'
 class CheckoutDraft extends React.Component {
   render() {
     const cart = this.props.cart
-    const orders = this.props.orders
-    const tamagotchis = this.props.tamagotchis
-    const status = orders.map(order => order.status)
-    const singleTamagotchi = tamagotchis.map(tamagotchi => tamagotchi)
-    const orderId = orders.map(order => order.id)
-    const tamagotchiQty = tamagotchis.map(tamagotchi => tamagotchi.qty)
-    console.log('status', status)
-    console.log('singleTamagotchi', singleTamagotchi)
-    console.log('orderId', orderId)
-    console.log('tamagotchiQty', tamagotchiQty)
-    console.log('cart.tamagotchi', cart.tamagotchis)
+
     return (
       <div className="checkout">
         Items:
@@ -129,9 +119,7 @@ class CheckoutDraft extends React.Component {
 }
 const mapStateToProps = reduxState => {
   return {
-    cart: reduxState.ordersAndCart.cart,
-    orders: reduxState.ordersAndCart.orders,
-    tamagotchis: reduxState.tamagotchis
+    cart: reduxState.ordersAndCart.cart
   }
 }
 
