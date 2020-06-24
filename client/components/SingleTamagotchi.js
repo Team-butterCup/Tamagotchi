@@ -27,14 +27,7 @@ class SingleTamagotchi extends React.Component {
 
     return (
       <div>
-        <div>
-          {' '}
-          {!!user.isAdmin && (
-            <NavLink to="/edit_tamagotchi">
-              <Button>Edit Tamagotchi</Button>
-            </NavLink>
-          )}
-        </div>
+        <div></div>
         <h2>Name: {name}</h2>
         <img src={imageUrl} />
         <h3>age: {age}</h3>
@@ -65,7 +58,8 @@ class SingleTamagotchi extends React.Component {
           <Reviews tamagotchiId={id} />
         </div>
         <div>
-          <EditTamagotchiForm tamagotchiId={id} />
+          Edit Tamagotchi{' '}
+          {!!user.isAdmin && <EditTamagotchiForm tamagotchiId={id} />}
         </div>
       </div>
     )
